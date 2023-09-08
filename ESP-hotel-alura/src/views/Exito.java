@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Exito extends JDialog {
@@ -23,7 +24,6 @@ public class Exito extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			Exito dialog = new Exito();
@@ -33,11 +33,13 @@ public class Exito extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 	/**
 	 * Create the dialog.
 	 */
 	public Exito() {
+		setTitle("Registro exitoso");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
@@ -49,7 +51,7 @@ public class Exito extends JDialog {
 		{
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
-			lblNewLabel.setBounds(123, 11, 100, 100);
+			lblNewLabel.setBounds(135, 11, 100, 100);
 			contentPanel.add(lblNewLabel);
 		}
 		{
@@ -61,13 +63,13 @@ public class Exito extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();//sirve para cerrar la ventana actual
+						dispose();
 						MenuUsuario usuario = new MenuUsuario(); 
 						usuario.setVisible(true);
 					}
@@ -75,11 +77,6 @@ public class Exito extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}

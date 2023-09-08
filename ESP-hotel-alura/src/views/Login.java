@@ -6,6 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.UsuarioController;
+import dao.UsuarioDAO;
+import modelo.Usuario;
+
 import javax.swing.JInternalFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -14,12 +19,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.List;
 
 public class Login extends JFrame {
 
@@ -29,9 +36,11 @@ public class Login extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 
+	private UsuarioController usuarioController;
+	
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -44,11 +53,13 @@ public class Login extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagenes/aH-40px.png")));
 		setResizable(false);
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,7 +94,8 @@ public class Login extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
+				Salir salir = new Salir();
+				salir.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -191,7 +203,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				tryLogin();
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -233,19 +245,20 @@ public class Login extends JFrame {
 		header.setLayout(null);
 	}
 	
-	private void Login() {
-		 String Usuario= "admin";
-	     String Contraseña="admin";
-
-	        String contrase=new String (txtContrasena.getPassword());
-
-	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
-	            MenuUsuario menu = new MenuUsuario();
-	            menu.setVisible(true);
-	            dispose();	 
-	        }else {
-	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
-	        }
+	private void tryLogin() {
+		usuarioController = new UsuarioController();
+		String user = txtUsuario.getText();
+     	String pass = new String(txtContrasena.getPassword());
+     	
+        List<Usuario> usuarios = usuarioController.buscarLogin(user,pass);
+        
+        if(!usuarios.isEmpty()){
+            MenuUsuario menu = new MenuUsuario();
+            menu.setVisible(true);
+            dispose();	 
+        }else {
+            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
+        }
 	} 
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();

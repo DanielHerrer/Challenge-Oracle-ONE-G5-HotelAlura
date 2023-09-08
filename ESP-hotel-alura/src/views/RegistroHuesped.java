@@ -7,10 +7,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
-import jdbc.controller.HuespedesController;
-import jdbc.controller.ReservasController;
-import jdbc.modelo.Huespedes;
-import jdbc.modelo.Reserva;
+
+import controller.HuespedController;
+import controller.ReservaController;
+import modelo.Huesped;
+import modelo.Reserva;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -39,8 +41,8 @@ public class RegistroHuesped extends JFrame {
 	private JTextField txtNreserva;
 	private JDateChooser txtFechaN;
 	private JComboBox<Format> txtNacionalidad;
-	private HuespedesController huespedesController;
-	private ReservasController reservasController;
+	private HuespedController huespedesController;
+	private ReservaController reservasController;
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	int xMouse, yMouse;
@@ -48,7 +50,7 @@ public class RegistroHuesped extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,13 +63,17 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
 	public RegistroHuesped(int idReserva) {
-		this.huespedesController = new HuespedesController();
-		this.reservasController = new ReservasController();
+		
+		// Se aloja en una variable la instancia de la clase RegistroHuesped, se usa cuando se quiere Salir()
+		RegistroHuesped rhAux = this;
+		
+		this.huespedesController = new HuespedController();
+		this.reservasController = new ReservaController();
 		
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
@@ -90,12 +96,13 @@ public class RegistroHuesped extends JFrame {
 		contentPane.add(header);
 		
 		JPanel btnAtras = new JPanel();
+		
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
-				dispose();				
+				// Se envia como parametro a Salir() para que si el usuario desea cancelar la Reserva se haga dispose()
+				Salir salir = new Salir(rhAux, idReserva);
+				salir.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -190,7 +197,7 @@ public class RegistroHuesped extends JFrame {
 		contentPane.add(txtTelefono);
 		
 		JLabel lblNewLabel_4 = new JLabel("REGISTRO HUÉSPED");
-		lblNewLabel_4.setBounds(606, 55, 234, 42);
+		lblNewLabel_4.setBounds(585, 55, 237, 30);
 		lblNewLabel_4.setForeground(new Color(12, 138, 199));
 		lblNewLabel_4.setFont(new Font("Roboto Black", Font.PLAIN, 23));
 		contentPane.add(lblNewLabel_4);
@@ -294,9 +301,9 @@ public class RegistroHuesped extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
-				dispose();
+				// Se envia como parametro a Salir() para que si el usuario desea cancelar la Reserva se haga dispose()
+				Salir salir = new Salir(rhAux,idReserva);
+				salir.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -326,7 +333,7 @@ public class RegistroHuesped extends JFrame {
 			if (txtFechaN.getDate() != null && !txtNombre.equals("") && !txtApellido.equals("") && !txtTelefono.equals("")) {		
 				String fechaN = ((JTextField)txtFechaN.getDateEditor().getUiComponent()).getText();	
 				int nreserva = Integer.parseInt(txtNreserva.getText());
-				Huespedes huespedes = new Huespedes(txtNombre.getText(), txtApellido.getText(),  java.sql.Date.valueOf(fechaN), txtNacionalidad.getSelectedItem().toString(),txtTelefono.getText(), nreserva);
+				Huesped huespedes = new Huesped(txtNombre.getText(), txtApellido.getText(),  java.sql.Date.valueOf(fechaN), txtNacionalidad.getSelectedItem().toString(),txtTelefono.getText(), nreserva);
 				this.huespedesController.guardar(huespedes);
 				Exito exito = new Exito();
 				exito.setVisible(true);	

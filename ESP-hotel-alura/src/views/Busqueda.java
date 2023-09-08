@@ -6,10 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import jdbc.controller.HuespedesController;
-import jdbc.controller.ReservasController;
-import jdbc.modelo.Huespedes;
-import jdbc.modelo.Reserva;
+import controller.HuespedController;
+import controller.ReservaController;
+import modelo.Huesped;
+import modelo.Reserva;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -45,8 +46,8 @@ public class Busqueda extends JFrame {
 	private JTable tbReservas;
 	private DefaultTableModel modelo;
 	private DefaultTableModel modeloHuesped;
-	private ReservasController reservaController;
-	private HuespedesController huespedesController;
+	private ReservaController reservaController;
+	private HuespedController huespedesController;
 	private JLabel labelAtras;
 	private JLabel labelExit;
 	int xMouse, yMouse;
@@ -55,7 +56,7 @@ public class Busqueda extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,13 +69,14 @@ public class Busqueda extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
 	public Busqueda() {
-		this.reservaController = new ReservasController();
-		this.huespedesController = new HuespedesController();
+		this.reservaController = new ReservaController();
+		this.huespedesController = new HuespedController();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
@@ -307,7 +309,7 @@ public class Busqueda extends JFrame {
 					if(confirmar == JOptionPane.YES_OPTION){
 
 						String valor = tbReservas.getValueAt(filaReservas, 0).toString();			
-						reservaController.Eliminar(Integer.valueOf(valor));
+						reservaController.eliminar(Integer.valueOf(valor));
 						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
 						limpiarTabla();
 						LlenarTablaReservas();
@@ -323,7 +325,7 @@ public class Busqueda extends JFrame {
 					if(confirmarh == JOptionPane.YES_OPTION){
 
 						String valor = tbHuespedes.getValueAt(filaHuespedes, 0).toString();			
-						huespedesController.Eliminar(Integer.valueOf(valor));
+						huespedesController.eliminar(Integer.valueOf(valor));
 						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
 						limpiarTabla();
 						LlenarTablaHuespedes();
@@ -354,11 +356,11 @@ public class Busqueda extends JFrame {
 	private List<Reserva> BuscarReservasId() {
 		return this.reservaController.buscarId(txtBuscar.getText());
 	} 
-	private List<Huespedes> BuscarHuespedes() {
+	private List<Huesped> BuscarHuespedes() {
 		return this.huespedesController.listarHuespedes();
 	}
 	
-	private List<Huespedes> BuscarHuespedesId() {
+	private List<Huesped> BuscarHuespedesId() {
 		return this.huespedesController.listarHuespedesId(txtBuscar.getText());
 	}
 	
@@ -366,6 +368,7 @@ public class Busqueda extends JFrame {
 		((DefaultTableModel) tbHuespedes.getModel()).setRowCount(0);
 		((DefaultTableModel) tbReservas.getModel()).setRowCount(0);
 	}
+	
 	private void LlenarTablaReservas() {
 
 	    // Llenar tabla
@@ -394,9 +397,9 @@ public class Busqueda extends JFrame {
 
 	private void LlenarTablaHuespedes() {			       
 	    //Llenar Tabla
-		List<Huespedes> huesped = BuscarHuespedes();
+		List<Huesped> huesped = BuscarHuespedes();
 		try {
-			for (Huespedes huespedes : huesped) {
+			for (Huesped huespedes : huesped) {
 				modeloHuesped.addRow(new Object[] { huespedes.getId(), huespedes.getNombre(), huespedes.getApellido(), huespedes.getFechaNacimiento(), huespedes.getNacionalidad(), huespedes.getTelefono(), huespedes.getIdReserva() });
 			}
 		} catch (Exception e) {
@@ -406,9 +409,9 @@ public class Busqueda extends JFrame {
 	
 	private void LlenarTablaHuespedesId() {			       
 	    //Llenar Tabla
-		List<Huespedes> huesped = BuscarHuespedesId();
+		List<Huesped> huesped = BuscarHuespedesId();
 		try {
-			for (Huespedes huespedes : huesped) {
+			for (Huesped huespedes : huesped) {
 				modeloHuesped.addRow(new Object[] { huespedes.getId(), huespedes.getNombre(), huespedes.getApellido(), huespedes.getFechaNacimiento(), huespedes.getNacionalidad(), huespedes.getTelefono(), huespedes.getIdReserva() });
 			}
 		} catch (Exception e) {

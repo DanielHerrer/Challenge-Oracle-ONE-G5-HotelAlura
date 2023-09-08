@@ -29,7 +29,7 @@ public class MenuPrincipal extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,6 +42,7 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
@@ -110,7 +111,9 @@ public class MenuPrincipal extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
+				Salir salir = new Salir();
+				salir.setVisible(true);
+
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

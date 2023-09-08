@@ -11,8 +11,10 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
-import jdbc.controller.ReservasController;
-import jdbc.modelo.Reserva;
+
+import controller.ReservaController;
+import modelo.Reserva;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -40,11 +42,10 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	
-	private ReservasController reservasController;
+	private ReservaController reservasController;
 
 	/**
 	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -57,13 +58,14 @@ public class ReservasView extends JFrame {
 			}
 		});
 	}
-
+	 */
+	
 	/**
 	 * Create the frame.
 	 */
 	public ReservasView() {
 		//Instanciando la clase ReservasController
-		this.reservasController = new ReservasController();
+		this.reservasController = new ReservaController();
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));//Adiciona el ícono a nuestro programa
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,7 +121,7 @@ public class ReservasView extends JFrame {
 		panel.add(lblFormaPago);
 
 		JLabel lblTitulo = new JLabel("SISTEMA DE RESERVAS");
-		lblTitulo.setBounds(109, 60, 219, 42);
+		lblTitulo.setBounds(100, 60, 232, 26);
 		lblTitulo.setForeground(new Color(12, 138, 199));
 		lblTitulo.setFont(new Font("Roboto", Font.BOLD, 20));
 		panel.add(lblTitulo);
@@ -146,8 +148,8 @@ public class ReservasView extends JFrame {
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
+				MenuUsuario usuario = new MenuUsuario();
+				usuario.setVisible(true);
 				dispose();
 			}
 			@Override
@@ -275,7 +277,7 @@ public class ReservasView extends JFrame {
 		txtValor.setBackground(SystemColor.text);
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtValor.setForeground(Color.BLACK);
-		txtValor.setBounds(78, 328, 43, 33);
+		txtValor.setBounds(78, 328, 140, 23);
 		txtValor.setEditable(false);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -313,11 +315,12 @@ public class ReservasView extends JFrame {
 	private void guardarReserva() {	
 		
 		String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
-		String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();
-		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS),txtValor.getText(),txtFormaPago.getSelectedItem().toString());
+		String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();	
+		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
 		reservasController.guardar(nuevaReserva);
 		
-		JOptionPane.showMessageDialog(null,"Registro Guardado con éxito | ID: " + nuevaReserva.getId());
+		JOptionPane.showMessageDialog(null,"Registro Guardado con éxito | ID: " + nuevaReserva.getId(),"Nueva Reserva",
+			    JOptionPane.INFORMATION_MESSAGE);
 		
 		RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
 		huesped.setVisible(true);
