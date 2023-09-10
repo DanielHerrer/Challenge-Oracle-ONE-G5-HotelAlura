@@ -19,8 +19,13 @@ public class ReservaDAO {
 		this.connection = connection;
 	}
 	
-	public void guardar(Reserva reserva) {
+	public void guardar(Reserva reserva) throws IllegalArgumentException, SQLException {
 		try {
+			// La fecha de salida es anterior a la fecha de entrada.
+			if (reserva.getfechaS().before(reserva.getfechaE())) {
+				throw new IllegalArgumentException("La fecha de salida es anterior a la fecha de entrada.");
+			}
+			
 			String sql = "INSERT INTO reservas (fecha_entrada, fecha_salida, valor, forma_Pago) VALUES (?, ?, ?, ?)";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -39,7 +44,7 @@ public class ReservaDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw e;
 		}
 
 	}
@@ -78,7 +83,7 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void Eliminar(Integer id) {
+	public void eliminar(Integer id) {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id = ?")) {
 			stm.setInt(1, id);
 			stm.execute();
@@ -87,7 +92,18 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void Actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
+	// No se puede eliminar una reserva debido a que un registro huesped contiene un foreign key de id_reserva
+	/*
+	public void eliminarPorHuesped(Integer id) {
+		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id IN (SELECT id_Reserva FROM huespedes WHERE id_Reserva = ?)")) {
+			stm.setInt(1, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}*/
+	
+	public void actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
 		try (PreparedStatement stm = connection
 				.prepareStatement("UPDATE reservas SET fecha_entrada = ?, fecha_salida = ?, valor = ?, forma_Pago = ? WHERE id = ?")) {
 			stm.setDate(1, fechaE);

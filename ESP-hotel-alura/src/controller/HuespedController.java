@@ -1,6 +1,7 @@
 package controller;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.HuespedDAO;
@@ -16,7 +17,7 @@ public class HuespedController {
 			this.huespedDAO = new HuespedDAO(connection);
 		}
 	 
-		public void guardar(Huesped huespedes) {
+		public void guardar(Huesped huespedes) throws SQLException, IllegalArgumentException {
 			this.huespedDAO.guardar(huespedes);
 		}
 		public List<Huesped> listarHuespedes() {
@@ -32,6 +33,11 @@ public class HuespedController {
 		}
 		
 		public void eliminar(Integer id) {
-			this.huespedDAO.Eliminar(id);
+			this.huespedDAO.eliminar(id);
 		}
+		
+		public void eliminarPorReserva(Integer id) {
+			this.huespedDAO.eliminarPorReserva(id);
+		}
+		
 }

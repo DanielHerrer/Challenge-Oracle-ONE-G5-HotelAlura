@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 import java.text.Format;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -329,18 +330,30 @@ public class RegistroHuesped extends JFrame {
 	
 
 	private void guardarHuesped() {
-		
+		try {
+			Huesped huesped;
+			
 			if (txtFechaN.getDate() != null && !txtNombre.equals("") && !txtApellido.equals("") && !txtTelefono.equals("")) {		
+				
 				String fechaN = ((JTextField)txtFechaN.getDateEditor().getUiComponent()).getText();	
 				int nreserva = Integer.parseInt(txtNreserva.getText());
-				Huesped huespedes = new Huesped(txtNombre.getText(), txtApellido.getText(),  java.sql.Date.valueOf(fechaN), txtNacionalidad.getSelectedItem().toString(),txtTelefono.getText(), nreserva);
-				this.huespedesController.guardar(huespedes);
-				Exito exito = new Exito();
-				exito.setVisible(true);	
-				dispose();
+				huesped = new Huesped(txtNombre.getText(), txtApellido.getText(),  java.sql.Date.valueOf(fechaN), txtNacionalidad.getSelectedItem().toString(),txtTelefono.getText(), nreserva);
+				
 			} else {
-				JOptionPane.showMessageDialog(this, "Debes llenar todos los campos.");
-			}									
+				throw new IllegalArgumentException("Debes llenar todos los datos.");
+			}
+			
+			this.huespedesController.guardar(huesped); // lanza la excepcion si hay error al guardar en la bdd
+			Exito exito = new Exito();
+			exito.setVisible(true);	
+			dispose();
+			
+		} catch(IllegalArgumentException ie) {
+			JOptionPane.showMessageDialog(this, "Alerta al registrar huesped:\n"+ie.getMessage(),"Alerta Huesped",JOptionPane.WARNING_MESSAGE);
+			
+		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(this, "Error al registrar huesped:\n"+e.getMessage(),"Error Huesped",JOptionPane.ERROR_MESSAGE);
+		}							
 	}
 	
 										

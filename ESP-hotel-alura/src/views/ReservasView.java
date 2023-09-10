@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -317,14 +318,19 @@ public class ReservasView extends JFrame {
 		String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
 		String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();	
 		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
-		reservasController.guardar(nuevaReserva);
-		
-		JOptionPane.showMessageDialog(null,"Registro Guardado con éxito | ID: " + nuevaReserva.getId(),"Nueva Reserva",
-			    JOptionPane.INFORMATION_MESSAGE);
-		
-		RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
-		huesped.setVisible(true);
-		dispose();		
+		try {
+			reservasController.guardar(nuevaReserva);
+			
+			JOptionPane.showMessageDialog(this,"Registro Guardado con éxito | ID: " + nuevaReserva.getId(),"Exito Reserva", JOptionPane.INFORMATION_MESSAGE);
+			RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
+			huesped.setVisible(true);
+			dispose();	
+		} catch (IllegalArgumentException ie) {
+			JOptionPane.showMessageDialog(this, "Alerta al registrar reserva:\n"+ie.getMessage(),"Alerta Reserva", JOptionPane.WARNING_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, "Error al registrar reserva:\n"+e.getMessage(),"Error Reserva", JOptionPane.ERROR_MESSAGE);
+		}
+			
 		
 	}
 		

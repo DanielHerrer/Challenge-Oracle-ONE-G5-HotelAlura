@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.ReservaDAO;
@@ -16,7 +17,7 @@ public class ReservaController {
 		this.reservaDAO = new ReservaDAO(connection);
 	}
  
-	public void guardar(Reserva reserva) {
+	public void guardar(Reserva reserva) throws IllegalArgumentException, SQLException {
 		this.reservaDAO.guardar(reserva);
 	}
 		
@@ -29,10 +30,15 @@ public class ReservaController {
 	}
 	
 	public void actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
-		this.reservaDAO.Actualizar(fechaE, fechaS, valor, formaPago, id);
+		this.reservaDAO.actualizar(fechaE, fechaS, valor, formaPago, id);
 	}
 	
 	public void eliminar(Integer id) {
-		this.reservaDAO.Eliminar(id);
+		this.reservaDAO.eliminar(id);
 	}
+	
+	/*
+	public void eliminarPorHuesped(Integer id) {
+		this.reservaDAO.eliminarPorHuesped(id);
+	}*/
 }

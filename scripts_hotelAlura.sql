@@ -32,3 +32,5 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 -- INSERT INTO usuarios (usuario, contrasenia) VALUES ('admin','admin');
+
+SELECT * FROM reservas;

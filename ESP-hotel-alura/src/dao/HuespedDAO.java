@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,33 @@ private Connection connection;
 		this.connection = connection;
 	}
 	
-	public void guardar(Huesped huesped) {
+	public void guardar(Huesped huesped) throws SQLException, IllegalArgumentException {
+		
 		try {
 			String sql = "INSERT INTO huespedes (nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_Reserva) VALUES (?, ?, ?, ?, ?, ?)";
-
+			
+			Date fechaActual = Date.valueOf(LocalDate.now());
+	        
+	        // Convierte las fechas a LocalDate
+	        LocalDate localFechaNacimiento = huesped.getFechaNacimiento().toLocalDate();
+	        LocalDate localFechaActual = fechaActual.toLocalDate();
+	        // Calcula la diferencia en años entre las fechas
+	        Period periodo = Period.between(localFechaNacimiento, localFechaActual);
+			
+	        // Si la fecha de nacimiento es posterior a la fecha actual
+			if (huesped.getFechaNacimiento().after(fechaActual)) {
+				throw new IllegalArgumentException("La fecha de nacimiento es incorrecta.");
+				
+			// Si el usuario indica una edad menor a 18 años
+			} else if (periodo.getYears() < 18) {
+				throw new IllegalArgumentException("El huesped que solicita la reserva debe ser mayor de 18 años.");	
+			}
+			
+			// Si falla lanza un NumberFormatException
+			double numeroTelefono = Double.valueOf(huesped.getTelefono());
+			
 			try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+				
 				pstm.setString(1, huesped.getNombre());
 				pstm.setString(2, huesped.getApellido());
 				pstm.setDate(3, huesped.getFechaNacimiento());
@@ -39,10 +62,16 @@ private Connection connection;
 					}
 				}
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			
+		} catch (NumberFormatException ne) {
+            throw new NumberFormatException("El número telefónico no es correcto."); 
+        } catch (IllegalArgumentException ie) {
+			throw ie;
+        } catch (SQLException e) {
+			throw e;
 		}
 	}
+	
 	public List<Huesped> listarHuespedes() {
 		List<Huesped> huespedes = new ArrayList<Huesped>();
 		try {
@@ -92,8 +121,18 @@ private Connection connection;
 			throw new RuntimeException(e);
 		}
 	}
-	public void Eliminar(Integer id) {
+	
+	public void eliminar(Integer id) {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id = ?")) {
+			stm.setInt(1, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void eliminarPorReserva(Integer id) {
+		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id_Reserva = ?")) {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
