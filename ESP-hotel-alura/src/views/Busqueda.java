@@ -324,45 +324,52 @@ public class Busqueda extends JFrame {
 				if (filaReservas >= 0) {
 
 					// reserva = tbReservas.getValueAt(filaReservas, 0).toString();
-					int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea Eliminar los datos?"); 
+					int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea Eliminar los datos?","Confirmar",JOptionPane.WARNING_MESSAGE); 
 
 					if(confirmar == JOptionPane.YES_OPTION){
-
-						String valorIdReserva = tbReservas.getValueAt(filaReservas, 0).toString();
-						
-						// Primero se elimina el huesped debido a que contiene un foreign key de reserva
-						huespedController.eliminarPorReserva(Integer.valueOf(valorIdReserva));
-						// Luego se elimina la reserva
-						reservaController.eliminar(Integer.valueOf(valorIdReserva));
-						
-						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
-						limpiarTabla();
-						LlenarTablaReservas();
-						LlenarTablaHuespedes();
-					}
-					
+						try {
+							String valorIdReserva = tbReservas.getValueAt(filaReservas, 0).toString();
+							
+							// Primero se elimina el huesped debido a que contiene un foreign key de reserva
+							huespedController.eliminarPorReserva(Integer.valueOf(valorIdReserva));
+							// Luego se elimina la reserva
+							reservaController.eliminar(Integer.valueOf(valorIdReserva));
+							
+							JOptionPane.showMessageDialog(contentPane, "Registro Eliminado","Exito",JOptionPane.INFORMATION_MESSAGE);
+							limpiarTabla();
+							LlenarTablaReservas();
+							LlenarTablaHuespedes();
+							
+						} catch (SQLException ex) {
+							JOptionPane.showMessageDialog(null, "Error al eliminar el registro:\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}			
 				} else if (filaHuespedes >= 0) {
 
 					// huespedes = tbHuespedes.getValueAt(filaHuespedes, 0).toString();
-					int confirmarh = JOptionPane.showConfirmDialog(null, "¿Desea Eliminar los datos?"); 
+					int confirmarh = JOptionPane.showConfirmDialog(null, "¿Desea Eliminar los datos?","Confirmar",JOptionPane.WARNING_MESSAGE); 
 
 					if(confirmarh == JOptionPane.YES_OPTION){
-
-						String valorIdHuesped = tbHuespedes.getValueAt(filaHuespedes, 0).toString();			
-						String valorIdReserva = tbHuespedes.getValueAt(filaHuespedes, 6).toString();			
-						
-						// Primero se elimina el huesped debido a que contiene un foreign key de reserva
-						huespedController.eliminar(Integer.valueOf(valorIdHuesped));
-						// Luego se elimina la reserva
-						reservaController.eliminar(Integer.valueOf(valorIdReserva));
-						
-						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
-						limpiarTabla();
-						LlenarTablaHuespedes();
-						LlenarTablaReservas();
+						try {
+							String valorIdHuesped = tbHuespedes.getValueAt(filaHuespedes, 0).toString();			
+							String valorIdReserva = tbHuespedes.getValueAt(filaHuespedes, 6).toString();			
+							
+							// Primero se elimina el huesped debido a que contiene un foreign key de reserva
+							huespedController.eliminar(Integer.valueOf(valorIdHuesped));
+							// Luego se elimina la reserva
+							reservaController.eliminar(Integer.valueOf(valorIdReserva));
+							
+							JOptionPane.showMessageDialog(contentPane, "Registro Eliminado","Exito",JOptionPane.INFORMATION_MESSAGE);
+							limpiarTabla();
+							LlenarTablaHuespedes();
+							LlenarTablaReservas();
+							
+						} catch (SQLException ex) {
+							JOptionPane.showMessageDialog(null, "Error al eliminar el registro:\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Error fila no seleccionada, por favor realice una busqueda y seleccione una fila para eliminar", "Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Error fila no seleccionada, por favor realice una busqueda y seleccione una fila para eliminar", "Alerta", JOptionPane.WARNING_MESSAGE);
 				}							
 			}
 		});

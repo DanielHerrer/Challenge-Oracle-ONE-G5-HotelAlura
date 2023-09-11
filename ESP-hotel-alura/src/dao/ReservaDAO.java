@@ -84,12 +84,12 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void eliminar(Integer id) {
+	public void eliminar(Integer id) throws SQLException {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id = ?")) {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
 	

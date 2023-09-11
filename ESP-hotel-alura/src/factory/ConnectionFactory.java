@@ -18,9 +18,9 @@ public class ConnectionFactory {
 		 * posibilidad de multiples conexiones y tiempo de espera entre ellas
 		 */
 		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
-		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/hotel_alura?serverTimezone=UTC");
-		comboPooledDataSource.setUser("root");
-		comboPooledDataSource.setPassword("root");
+		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/hotel_alura?serverTimezone=UTC"); // Configurar aqui tu localhost
+		comboPooledDataSource.setUser("root"); // Configurar aqui tu usuario 
+		comboPooledDataSource.setPassword("root"); // Configurar aqui tu contraseña
 
 		this.dataSource = comboPooledDataSource;
 	}

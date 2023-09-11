@@ -32,11 +32,11 @@ public class HuespedController {
 			this.huespedDAO.actualizar(nombre, apellido, fechaN, nacionalidad, telefono, idReserva, id);
 		}
 		
-		public void eliminar(Integer id) {
+		public void eliminar(Integer id) throws SQLException {
 			this.huespedDAO.eliminar(id);
 		}
 		
-		public void eliminarPorReserva(Integer id) {
+		public void eliminarPorReserva(Integer id) throws SQLException {
 			this.huespedDAO.eliminarPorReserva(id);
 		}
 		

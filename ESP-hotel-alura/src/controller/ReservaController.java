@@ -33,7 +33,7 @@ public class ReservaController {
 		this.reservaDAO.actualizar(fechaE, fechaS, habitacion, valor, formaPago, id);
 	}
 	
-	public void eliminar(Integer id) {
+	public void eliminar(Integer id) throws SQLException {
 		this.reservaDAO.eliminar(id);
 	}
 	

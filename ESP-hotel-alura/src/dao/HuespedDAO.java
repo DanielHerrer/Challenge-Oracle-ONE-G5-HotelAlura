@@ -122,21 +122,21 @@ private Connection connection;
 		}
 	}
 	
-	public void eliminar(Integer id) {
+	public void eliminar(Integer id) throws SQLException {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id = ?")) {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
 	
-	public void eliminarPorReserva(Integer id) {
+	public void eliminarPorReserva(Integer id) throws SQLException {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id_Reserva = ?")) {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
 	
