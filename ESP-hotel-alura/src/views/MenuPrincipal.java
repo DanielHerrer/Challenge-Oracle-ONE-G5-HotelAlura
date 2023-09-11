@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.time.LocalDate;
 
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JFrame {
@@ -82,8 +83,10 @@ public class MenuPrincipal extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblCopyR = new JLabel("Desarrollado por Fulanita de Tal © 2022");
-		lblCopyR.setBounds(315, 11, 284, 19);
+        int anioActual = LocalDate.now().getYear();
+        
+		JLabel lblCopyR = new JLabel("Desarrollado por Daniel Franco Herrera © "+anioActual);
+		lblCopyR.setBounds(315, 11, 332, 21);
 		lblCopyR.setForeground(new Color(240, 248, 255));
 		lblCopyR.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel_1.add(lblCopyR);

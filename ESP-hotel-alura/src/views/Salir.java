@@ -43,6 +43,7 @@ public class Salir extends JDialog {
 	 */
 	public Salir() {
 		setTitle("Salir");
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
@@ -54,19 +55,19 @@ public class Salir extends JDialog {
 		{
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
-			lblNewLabel.setBounds(130, 11, 100, 100);
+			lblNewLabel.setBounds(135, 11, 100, 100);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("¿Desea salir de la aplicación?");
 			lblNewLabel_1.setForeground(new Color (12, 138, 199));
 			lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
-			lblNewLabel_1.setBounds(55, 122, 259, 22);
+			lblNewLabel_1.setBounds(60, 122, 259, 22);
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Si");
@@ -90,8 +91,9 @@ public class Salir extends JDialog {
 		}
 	}
 	
-	// Ventana para salir para ReservasView
+	// Ventana para salir para ReservasView 
 	public Salir(RegistroHuesped rh, Integer idReserva) {
+		setResizable(false);
 		setTitle("Cancelar Reserva");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
 		setBounds(100, 100, 394, 226);
@@ -104,7 +106,7 @@ public class Salir extends JDialog {
 		{
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
-			lblNewLabel.setBounds(130, 11, 100, 100);
+			lblNewLabel.setBounds(135, 11, 100, 100);
 			contentPanel.add(lblNewLabel);
 		}
 		{
@@ -116,7 +118,7 @@ public class Salir extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Si");

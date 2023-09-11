@@ -7,24 +7,29 @@ public class Reserva {
 	private Integer id;
 	private Date fechaE;
 	private Date fechaS;
+	private String tipoHabitacion;
 	private String valor;
 	private String formaPago;
 	
 	
-	public Reserva(Date fechaE, Date fechaS, String valor, String formaPago) {		
+	public Reserva(Date fechaE, Date fechaS, String tipoHabitacion, String valor, String formaPago) {		
 		this.fechaE = fechaE;
 		this.fechaS = fechaS;
+		this.tipoHabitacion = tipoHabitacion;
 		this.valor = valor;
 		this.formaPago = formaPago;
 	}
 		
-	public Reserva(Integer id, Date fechaE, Date fechaS, String valor, String formaPago) {
+	public Reserva(Integer id, Date fechaE, Date fechaS, String tipoHabitacion, String valor, String formaPago) {
 		this.id = id;
 		this.fechaE = fechaE;
 		this.fechaS = fechaS;
+		this.tipoHabitacion = tipoHabitacion;
 		this.valor = valor;
 		this.formaPago = formaPago;
 	}
+
+	
 
 	public Integer getId() {
 		return id;
@@ -40,6 +45,10 @@ public class Reserva {
 
 	public Date getfechaS() {
 		return fechaS;
+	}
+	
+	public String getTipoHabitacion() {
+		return tipoHabitacion;
 	}
 
 	public String getvalor() {

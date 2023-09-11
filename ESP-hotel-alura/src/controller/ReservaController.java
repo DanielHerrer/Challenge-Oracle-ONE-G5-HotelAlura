@@ -29,8 +29,8 @@ public class ReservaController {
 		return this.reservaDAO.buscarId(id);
 	}
 	
-	public void actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
-		this.reservaDAO.actualizar(fechaE, fechaS, valor, formaPago, id);
+	public void actualizar(Date fechaE, Date fechaS, String habitacion, String valor, String formaPago, Integer id) throws SQLException {
+		this.reservaDAO.actualizar(fechaE, fechaS, habitacion, valor, formaPago, id);
 	}
 	
 	public void eliminar(Integer id) {

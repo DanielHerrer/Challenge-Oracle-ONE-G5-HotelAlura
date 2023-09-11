@@ -1,16 +1,20 @@
 CREATE SCHEMA IF NOT EXISTS hotel_alura;
 
 -- DROP TABLE reservas;
+-- SELECT * FROM reservas;
 CREATE TABLE IF NOT EXISTS reservas (
   id INT AUTO_INCREMENT NOT NULL,
   fecha_Entrada DATE NOT NULL,
   fecha_Salida DATE NOT NULL,
+  tipo_Habitacion VARCHAR(40) NOT NULL,
   valor VARCHAR(40) NOT NULL,
   forma_Pago VARCHAR(40) NOT NULL,
   PRIMARY KEY (id)
 );
 
+
 -- DROP TABLE huespedes;
+-- SELECT * FROM huespedes;
 CREATE TABLE IF NOT EXISTS huespedes (
   id INT AUTO_INCREMENT NOT NULL,
   nombre VARCHAR(40) NOT NULL,
@@ -24,6 +28,7 @@ CREATE TABLE IF NOT EXISTS huespedes (
 );
 
 -- DROP TABLE usuarios;
+-- SELECT * FROM usuarios;
 CREATE TABLE IF NOT EXISTS usuarios (
 	id INT AUTO_INCREMENT NOT NULL,
     usuario VARCHAR(40) NOT NULL UNIQUE,
@@ -31,6 +36,4 @@ CREATE TABLE IF NOT EXISTS usuarios (
     PRIMARY KEY (id)
 );
 
--- INSERT INTO usuarios (usuario, contrasenia) VALUES ('admin','admin');
-
-SELECT * FROM reservas;
+INSERT INTO usuarios (usuario, contrasenia) VALUES ('admin','admin');

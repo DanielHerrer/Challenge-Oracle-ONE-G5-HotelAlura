@@ -106,7 +106,7 @@ private Connection connection;
 		}
 	}
 	
-	public void Actualizar(String nombre, String apellido, Date fechaN, String nacionalidad, String telefono, Integer idReserva, Integer id) {
+	public void actualizar(String nombre, String apellido, Date fechaN, String nacionalidad, String telefono, Integer idReserva, Integer id) throws SQLException {
 		try (PreparedStatement stm = connection
 				.prepareStatement("UPDATE huespedes SET nombre = ?, apellido = ?, fecha_nacimiento = ?, nacionalidad = ?, telefono = ?, id_Reserva = ? WHERE id = ?")) {
 			stm.setString(1, nombre);
@@ -118,7 +118,7 @@ private Connection connection;
 			stm.setInt(7, id);
 			stm.execute();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
 	

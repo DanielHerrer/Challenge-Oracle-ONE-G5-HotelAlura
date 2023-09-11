@@ -34,6 +34,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.swing.JScrollPane;
 
@@ -107,27 +108,26 @@ public class Busqueda extends JFrame {
 		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
 		contentPane.add(panel);
 		
-		tbHuespedes = new JTable();
-		tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
-		
-		modeloHuesped = (DefaultTableModel) tbHuespedes.getModel();
-
-		modeloHuesped.addColumn("Numero de Huesped");
-		modeloHuesped.addColumn("Nombre");
-		modeloHuesped.addColumn("Apellido");
-		modeloHuesped.addColumn("Fecha de Nacimiento");
-		modeloHuesped.addColumn("Nacionalidad");
-		modeloHuesped.addColumn("Telefono");
-		modeloHuesped.addColumn("Numero de Reserva");
-		tbHuespedes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); // añadido
-		
-		JScrollPane barraDescHuespedes = new JScrollPane(tbHuespedes);
+		/*
 		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), barraDescHuespedes, null);
 		//panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), tbHuespedes, null);
+		 */
 		
+		boolean[] columnEditableH = new boolean[] { false, true, true, true, true, true, false }; // Define qué columnas son editables
+		String[] columnNamesH = { "Numero de Huesped", "Nombre", "Apellido", "Fecha de Nacimiento", "Nacionalidad", "Telefono", "Numero de Reserva" };
+		modeloHuesped = new ModeloTabla(columnNamesH, 0, columnEditableH);
+
+		tbHuespedes = new JTable(modeloHuesped);
+		
+		tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
+		tbHuespedes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		JScrollPane barraDescHuespedes = new JScrollPane(tbHuespedes);
+		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), barraDescHuespedes, null);
+
 		LlenarTablaHuespedes();
 		
-		
+		/*
 		tbReservas = new JTable();
 		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
 		
@@ -135,6 +135,7 @@ public class Busqueda extends JFrame {
 		modeloReserva.addColumn("Numero de Reserva");
 		modeloReserva.addColumn("Fecha Check In");
 		modeloReserva.addColumn("Fecha Check Out");
+		modeloReserva.addColumn("Tipo de Habitación");
 		modeloReserva.addColumn("Valor");
 		modeloReserva.addColumn("Forma de Pago");
 		tbReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -144,7 +145,21 @@ public class Busqueda extends JFrame {
 		//panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), tbReservas, null);
 		
 		LlenarTablaReservas();
+		*/
+		boolean[] columnEditableR = new boolean[] { false, true, true, true, true, true }; // Define qué columnas son editables
+		String[] columnNamesR = { "Numero de Reserva", "Fecha Check In", "Fecha Check Out", "Tipo de Habitacion", "Valor", "Forma de Pago" };
+		modeloReserva = new ModeloTabla(columnNamesR, 0, columnEditableR);
+
+		tbReservas = new JTable(modeloReserva);
 		
+		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
+		tbReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		JScrollPane barraDescReservas = new JScrollPane(tbReservas);
+		//panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), tbReservas, null);
+		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), barraDescReservas, null);
+
+		LlenarTablaReservas();
 		
 		JLabel logo = new JLabel("");
 		logo.setBounds(56, 51, 104, 107);
@@ -347,7 +362,7 @@ public class Busqueda extends JFrame {
 						LlenarTablaReservas();
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Error fila no seleccionada, por favor realice una busqueda y seleccione una fila para eliminar");
+					JOptionPane.showMessageDialog(null, "Error fila no seleccionada, por favor realice una busqueda y seleccione una fila para eliminar", "Error", JOptionPane.WARNING_MESSAGE);
 				}							
 			}
 		});
@@ -391,7 +406,7 @@ public class Busqueda extends JFrame {
 		try {
 			
 			for (Reserva reserva : reservas) {
-				modeloReserva.addRow(new Object[] { reserva.getId(), reserva.getfechaE(), reserva.getfechaS(), reserva.getvalor(), reserva.getformaPago() });
+				modeloReserva.addRow(new Object[] { reserva.getId(), reserva.getfechaE(), reserva.getfechaS(), reserva.getTipoHabitacion(), reserva.getvalor(), reserva.getformaPago() });
 			}
 			
 		} catch (Exception e) {
@@ -408,7 +423,7 @@ public class Busqueda extends JFrame {
 		try {
 			
 			for (Reserva reserva : reservas) {
-				modeloReserva.addRow(new Object[] { reserva.getId(), reserva.getfechaE(), reserva.getfechaS(), reserva.getvalor(), reserva.getformaPago() });
+				modeloReserva.addRow(new Object[] { reserva.getId(), reserva.getfechaE(), reserva.getfechaS(), reserva.getTipoHabitacion(), reserva.getvalor(), reserva.getformaPago() });
 			}
 			
 		} catch (Exception e) {
@@ -448,14 +463,20 @@ public class Busqueda extends JFrame {
 		Optional.ofNullable(modeloReserva.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
         .ifPresentOrElse(fila -> {
         	
-        	Date fechaE = Date.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 1).toString());		
-        	Date fechaS = Date.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 2).toString());
-			String valor = (String) modeloReserva.getValueAt(tbReservas.getSelectedRow(), 3);
-			String formaPago = (String) modeloReserva.getValueAt(tbReservas.getSelectedRow(), 4);
-			Integer id = Integer.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 0).toString());
-			this.reservaController.actualizar(fechaE,fechaS, valor, formaPago, id);
-			JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"));
-		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un registro"));
+        		Date fechaE = Date.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 1).toString());		
+            	Date fechaS = Date.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 2).toString());
+            	String habitacion = (String) modeloReserva.getValueAt(tbReservas.getSelectedRow(), 3);
+    			String valor = (String) modeloReserva.getValueAt(tbReservas.getSelectedRow(), 4);
+    			String formaPago = (String) modeloReserva.getValueAt(tbReservas.getSelectedRow(), 5);
+    			Integer id = Integer.valueOf(modeloReserva.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+	    		try {
+	    			this.reservaController.actualizar(fechaE, fechaS, habitacion, valor, formaPago, id); // lanza excepcion
+	    			JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"), "Exito", JOptionPane.INFORMATION_MESSAGE);
+	        	} catch (SQLException e) {
+	        		JOptionPane.showMessageDialog(this, String.format("Error al modificar el registro:\n"+e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+	        	}
+        	
+		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elige un registro"));
 		
 	}
 	
@@ -470,21 +491,43 @@ public class Busqueda extends JFrame {
 			String telefono = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5);
 			Integer idReserva = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 6).toString());
 			Integer id = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
-			this.huespedController.actualizar(nombre,apellido,fechaN, nacionalidad, telefono, idReserva, id);
-			JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"));
+			try {
+				this.huespedController.actualizar(nombre,apellido,fechaN, nacionalidad, telefono, idReserva, id); // lanza excepcion
+				JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"), "Exito", JOptionPane.INFORMATION_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(this, String.format("Error al modificar el registro:\n"+e.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+				
 		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un registro"));
 		
 	}
 	
 	
-	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
-	        xMouse = evt.getX();
-	        yMouse = evt.getY();
-	    }
+	private void headerMousePressed(java.awt.event.MouseEvent evt) {
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }
 
-	    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
-	        int x = evt.getXOnScreen();
-	        int y = evt.getYOnScreen();
-	        this.setLocation(x - xMouse, y - yMouse);
-}
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }
+    
+    // CREADO ESPECIFICAMENTE para evitar que el usuario edite las ID
+    public class ModeloTabla extends DefaultTableModel {
+        // Lista de columnas que no se pueden editar
+        private final boolean[] editableColumns;
+
+        public ModeloTabla(Object[] columnNames, int rowCount, boolean[] editableColumns) {
+            super(columnNames, rowCount);
+            this.editableColumns = editableColumns;
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Devuelve true si la columna es editable, false si no lo es
+            return editableColumns[column];
+        }
+    }
 }

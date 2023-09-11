@@ -250,14 +250,18 @@ public class Login extends JFrame {
 		String user = txtUsuario.getText();
      	String pass = new String(txtContrasena.getPassword());
      	
-        List<Usuario> usuarios = usuarioController.buscarLogin(user,pass);
-        
-        if(!usuarios.isEmpty()){
-            MenuUsuario menu = new MenuUsuario();
-            menu.setVisible(true);
-            dispose();	 
-        }else {
-            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
+        if(!user.trim().equals("") && !pass.trim().equals("")) {
+        	List<Usuario> usuarios = usuarioController.buscarLogin(user,pass);
+            
+            if(!usuarios.isEmpty()){
+                MenuUsuario menu = new MenuUsuario();
+                menu.setVisible(true);
+                dispose();	 
+            }else {
+                JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos","Error Login",JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+        	JOptionPane.showMessageDialog(this, "Debe completar los datos", "Alerta Login", JOptionPane.WARNING_MESSAGE);
         }
 	} 
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
