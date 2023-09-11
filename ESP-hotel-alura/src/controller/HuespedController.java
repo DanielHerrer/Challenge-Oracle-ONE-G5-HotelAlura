@@ -28,6 +28,10 @@ public class HuespedController {
 			return this.huespedDAO.buscarId(id);
 		}
 		
+		public List<Huesped> listarHuespedesApellido(String apellido) {
+			return this.huespedDAO.buscarApellido(apellido);
+		}
+		
 		public void actualizar(String nombre, String apellido, Date fechaN, String nacionalidad, String telefono, Integer idReserva, Integer id) throws SQLException {
 			this.huespedDAO.actualizar(nombre, apellido, fechaN, nacionalidad, telefono, idReserva, id);
 		}

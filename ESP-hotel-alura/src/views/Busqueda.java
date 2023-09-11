@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +12,6 @@ import modelo.Reserva;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -21,15 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Optional;
-import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
-import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -54,23 +49,6 @@ public class Busqueda extends JFrame {
 	int xMouse, yMouse;
 	String reserva;
 	String huespedes;
-
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Busqueda frame = new Busqueda();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -108,11 +86,6 @@ public class Busqueda extends JFrame {
 		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
 		contentPane.add(panel);
 		
-		/*
-		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), barraDescHuespedes, null);
-		//panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), tbHuespedes, null);
-		 */
-		
 		boolean[] columnEditableH = new boolean[] { false, true, true, true, true, true, false }; // Define qué columnas son editables
 		String[] columnNamesH = { "Numero de Huesped", "Nombre", "Apellido", "Fecha de Nacimiento", "Nacionalidad", "Telefono", "Numero de Reserva" };
 		modeloHuesped = new ModeloTabla(columnNamesH, 0, columnEditableH);
@@ -126,26 +99,7 @@ public class Busqueda extends JFrame {
 		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), barraDescHuespedes, null);
 
 		LlenarTablaHuespedes();
-		
-		/*
-		tbReservas = new JTable();
-		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
-		
-		modeloReserva = (DefaultTableModel) tbReservas.getModel();
-		modeloReserva.addColumn("Numero de Reserva");
-		modeloReserva.addColumn("Fecha Check In");
-		modeloReserva.addColumn("Fecha Check Out");
-		modeloReserva.addColumn("Tipo de Habitación");
-		modeloReserva.addColumn("Valor");
-		modeloReserva.addColumn("Forma de Pago");
-		tbReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
-		JScrollPane barraDescReservas = new JScrollPane(tbReservas);
-		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), barraDescReservas, null);
-		//panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), tbReservas, null);
-		
-		LlenarTablaReservas();
-		*/
+
 		boolean[] columnEditableR = new boolean[] { false, true, true, true, true, true }; // Define qué columnas son editables
 		String[] columnNamesR = { "Numero de Reserva", "Fecha Check In", "Fecha Check Out", "Tipo de Habitacion", "Valor", "Forma de Pago" };
 		modeloReserva = new ModeloTabla(columnNamesR, 0, columnEditableR);
@@ -156,7 +110,6 @@ public class Busqueda extends JFrame {
 		tbReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
 		JScrollPane barraDescReservas = new JScrollPane(tbReservas);
-		//panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), tbReservas, null);
 		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), barraDescReservas, null);
 
 		LlenarTablaReservas();
@@ -257,15 +210,31 @@ public class Busqueda extends JFrame {
 		btnbuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				String buscador = txtBuscar.getText().trim();
 				limpiarTabla();
-				if (txtBuscar.getText().equals("")) {					
+				
+				// Si el buscador esta VACIO
+				if (buscador.equals("")) {					
 					LlenarTablaHuespedes();
 					LlenarTablaReservas();
+					
+				// Si el buscador NO esta vacio
 				} else {
-				LlenarTablaReservasId();
-				LlenarTablaHuespedesId();
-			}
+					
+					// Si el bloque try fluye con normalidad entonces es un numero
+					try {
+						int numeroAux = Integer.parseInt(buscador);
+						LlenarTablaReservasId(buscador);
+						LlenarTablaHuespedesId(buscador);
+						
+					// Si se acciona el bloque catch entonces es una cadena
+					} catch (NumberFormatException ne) {
+						LlenarTablaReservasApellido(buscador);
+						LlenarTablaHuespedesApellido(buscador);			
+						
+					}
 				}
+			}
 		});
 		btnbuscar.setLayout(null);
 		btnbuscar.setBackground(new Color(12, 138, 199));
@@ -384,21 +353,13 @@ public class Busqueda extends JFrame {
 		lblEliminar.setFont(new Font("Roboto", Font.PLAIN, 18));
 		lblEliminar.setBounds(0, 0, 122, 35);
 		btnEliminar.add(lblEliminar);
+		
+		JLabel lblFechaDeIngreso = new JLabel("ID / APELLIDO");
+		lblFechaDeIngreso.setForeground(SystemColor.textInactiveText);
+		lblFechaDeIngreso.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblFechaDeIngreso.setBounds(580, 169, 105, 21);
+		contentPane.add(lblFechaDeIngreso);
 		setResizable(false);
-	}
-	private List<Reserva> BuscarReservas() {
-		return this.reservaController.buscar();
-	}
-	
-	private List<Reserva> BuscarReservasId() {
-		return this.reservaController.buscarId(txtBuscar.getText());
-	} 
-	private List<Huesped> BuscarHuespedes() {
-		return this.huespedController.listarHuespedes();
-	}
-	
-	private List<Huesped> BuscarHuespedesId() {
-		return this.huespedController.listarHuespedesId(txtBuscar.getText());
 	}
 	
 	private void limpiarTabla() {
@@ -409,7 +370,7 @@ public class Busqueda extends JFrame {
 	private void LlenarTablaReservas() {
 
 	    // Llenar tabla
-		List<Reserva> reservas = BuscarReservas();
+		List<Reserva> reservas = reservaController.buscar();
 		try {
 			
 			for (Reserva reserva : reservas) {
@@ -423,10 +384,25 @@ public class Busqueda extends JFrame {
 		
 	}
 	
-	private void LlenarTablaReservasId() {
+	private void LlenarTablaReservasId(String id) {
 
 	    // Llenar tabla
-		List<Reserva> reservas = BuscarReservasId();
+		List<Reserva> reservas = reservaController.buscarId(id);
+		try {
+			
+			for (Reserva reserva : reservas) {
+				modeloReserva.addRow(new Object[] { reserva.getId(), reserva.getfechaE(), reserva.getfechaS(), reserva.getTipoHabitacion(), reserva.getvalor(), reserva.getformaPago() });
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	private void LlenarTablaReservasApellido(String apellido) {
+
+	    // Llenar tabla
+		List<Reserva> reservas = reservaController.buscarApellido(apellido);
 		try {
 			
 			for (Reserva reserva : reservas) {
@@ -440,7 +416,7 @@ public class Busqueda extends JFrame {
 
 	private void LlenarTablaHuespedes() {			       
 	    //Llenar Tabla
-		List<Huesped> huespedes = BuscarHuespedes();
+		List<Huesped> huespedes = huespedController.listarHuespedes();
 		try {
 			
 			for (Huesped huesped : huespedes) {
@@ -452,9 +428,23 @@ public class Busqueda extends JFrame {
 		}
 	}
 	
-	private void LlenarTablaHuespedesId() {			       
+	private void LlenarTablaHuespedesId(String id) {			       
 	    //Llenar Tabla
-		List<Huesped> huespedes = BuscarHuespedesId();
+		List<Huesped> huespedes = huespedController.listarHuespedesId(id);
+		try {
+			
+			for (Huesped huesped : huespedes) {
+				modeloHuesped.addRow(new Object[] { huesped.getId(), huesped.getNombre(), huesped.getApellido(), huesped.getFechaNacimiento(), huesped.getNacionalidad(), huesped.getTelefono(), huesped.getIdReserva() });
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	private void LlenarTablaHuespedesApellido(String apellido) {			       
+	    //Llenar Tabla
+		List<Huesped> huespedes = huespedController.listarHuespedesApellido(apellido);
 		try {
 			
 			for (Huesped huesped : huespedes) {

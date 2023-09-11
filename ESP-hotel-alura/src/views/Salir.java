@@ -11,10 +11,12 @@ import javax.swing.border.EmptyBorder;
 import controller.ReservaController;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -23,20 +25,6 @@ import java.awt.Toolkit;
 public class Salir extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		try {
-			Exito dialog = new Exito();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
 
 	/**
 	 * Create the dialog.
@@ -124,15 +112,29 @@ public class Salir extends JDialog {
 				JButton okButton = new JButton("Si");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Se debe borrar la reserva en la bdd antes de volver al menu de usuario
-						ReservaController rc = new ReservaController();
-						rc.eliminar(idReserva);
-						// Se cierra la ventana RegistroHuesped
-						rh.dispose();
-						// Luego se vuelve al menu
-						MenuUsuario principal = new MenuUsuario();
-						principal.setVisible(true);
-						dispose();
+						try {
+							
+							// Se debe borrar la reserva en la bdd antes de volver al menu de usuario
+							ReservaController rc = new ReservaController();
+							
+							rc.eliminar(idReserva); // lanza la excepcion SQLException
+							
+							// Se cierra la ventana RegistroHuesped
+							rh.dispose();
+							
+							// Luego se vuelve al menu
+							MenuUsuario principal = new MenuUsuario();
+							principal.setVisible(true);
+							dispose();
+							
+						} catch (SQLException ex) {
+							JOptionPane.showMessageDialog(null, "Error al revertir la reserva. ID: "+idReserva+"\n"+ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+							rh.dispose();
+							
+							MenuUsuario principal = new MenuUsuario();
+							principal.setVisible(true);
+							dispose();
+						}
 					}
 				});
 				buttonPane.add(okButton);

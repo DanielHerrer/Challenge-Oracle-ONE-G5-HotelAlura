@@ -61,6 +61,7 @@ private Connection connection;
 						huesped.setId(rst.getInt(1));
 					}
 				}
+
 			}
 			
 		} catch (NumberFormatException ne) {
@@ -92,10 +93,28 @@ private Connection connection;
 		List<Huesped> huespedes = new ArrayList<Huesped>();
 		try {
 
-			String sql = "SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_Reserva FROM huespedes WHERE id_Reserva = ?";
+			String sql = "SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_Reserva FROM huespedes WHERE id = ?";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.setString(1, id);
+				pstm.execute();
+
+				transformarResultSetEnHuesped(huespedes, pstm);
+			}
+			return huespedes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<Huesped> buscarApellido(String apellido) {
+		List<Huesped> huespedes = new ArrayList<Huesped>();
+		try {
+
+			String sql = "SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_Reserva FROM huespedes WHERE apellido LIKE ?";
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, "%"+apellido+"%");
 				pstm.execute();
 
 				transformarResultSetEnHuesped(huespedes, pstm);

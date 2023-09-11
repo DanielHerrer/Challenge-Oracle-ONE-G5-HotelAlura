@@ -29,6 +29,10 @@ public class ReservaController {
 		return this.reservaDAO.buscarId(id);
 	}
 	
+	public List<Reserva> buscarApellido(String apellido) {
+		return this.reservaDAO.buscarApellido(apellido);
+	}
+	
 	public void actualizar(Date fechaE, Date fechaS, String habitacion, String valor, String formaPago, Integer id) throws SQLException {
 		this.reservaDAO.actualizar(fechaE, fechaS, habitacion, valor, formaPago, id);
 	}

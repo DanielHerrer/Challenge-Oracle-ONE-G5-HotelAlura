@@ -84,6 +84,24 @@ public class ReservaDAO {
 		}
 	}
 	
+	public List<Reserva> buscarApellido(String apellido) {
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		try {
+
+			String sql = "SELECT r.id, r.fecha_entrada, r.fecha_salida, r.tipo_habitacion, r.valor, r.forma_Pago FROM reservas r INNER JOIN huespedes h ON r.id = h.id_reserva WHERE h.apellido LIKE ?";
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, "%" + apellido + "%");
+				pstm.execute();
+
+				transformarResultSetEnReserva(reservas, pstm);
+			}
+			return reservas;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public void eliminar(Integer id) throws SQLException {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id = ?")) {
 			stm.setInt(1, id);
