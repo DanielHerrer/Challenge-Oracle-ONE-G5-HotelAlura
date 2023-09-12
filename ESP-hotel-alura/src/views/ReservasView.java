@@ -54,7 +54,7 @@ public class ReservasView extends JFrame {
 		//Instanciando la clase ReservasController
 		this.reservasController = new ReservaController();
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));//Adiciona el ícono a nuestro programa
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/calendario.png")));//Adiciona el ícono a nuestro programa
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
 		setResizable(false); //Evita que la ventana sea redimensionada
@@ -102,14 +102,14 @@ public class ReservasView extends JFrame {
 		panel.add(lblFormaPago);
 
 		JLabel lblTitulo = new JLabel("SISTEMA DE RESERVAS");
-		lblTitulo.setBounds(93, 50, 232, 26);
+		lblTitulo.setBounds(75, 47, 271, 30);
 		lblTitulo.setForeground(new Color(12, 138, 199));
-		lblTitulo.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 23));
 		panel.add(lblTitulo);
 
 		JPanel fondoImagen = new JPanel();
 		fondoImagen.setBounds(428, 0, 482, 560);
-		fondoImagen.setBackground(new Color(12, 138, 199));
+		fondoImagen.setBackground(new Color(153, 180, 209));
 		panel.add(fondoImagen);
 		fondoImagen.setLayout(null);
 
@@ -140,12 +140,13 @@ public class ReservasView extends JFrame {
 			}			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnexit.setBackground(new Color(12, 138, 199));
+				btnexit.setBackground(new Color(153, 180, 209));
 				labelExit.setForeground(Color.white);
 			}
 		});
+		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnexit.setLayout(null);
-		btnexit.setBackground(new Color(12, 138, 199));
+		btnexit.setBackground(new Color(153, 180, 209));
 		btnexit.setBounds(429, 0, 53, 36);
 		fondoImagen.add(btnexit);
 
@@ -194,6 +195,7 @@ public class ReservasView extends JFrame {
 				labelAtras.setForeground(Color.black);
 			}
 		});
+		btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnAtras.setLayout(null);
 		btnAtras.setBackground(Color.WHITE);
 		btnAtras.setBounds(0, 0, 53, 36);
@@ -212,10 +214,11 @@ public class ReservasView extends JFrame {
 		panel.add(separator_1_4);
 		
 		JLabel lblSiguiente = new JLabel("SIGUIENTE");
+		lblSiguiente.setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/disquete-blanco.png")));
 		lblSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSiguiente.setForeground(Color.WHITE);
 		lblSiguiente.setFont(new Font("Roboto", Font.PLAIN, 18));
-		lblSiguiente.setBounds(0, 0, 112, 35);
+		lblSiguiente.setBounds(0, 0, 155, 40);
 	
 		
 		//Campos que guardaremos en la base de datos
@@ -281,13 +284,21 @@ public class ReservasView extends JFrame {
 				if((txtFechaE.getDate() != null && txtFechaS.getDate() != null)) {
 					guardarReserva();
 				}else {
-					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos","Alerta",JOptionPane.WARNING_MESSAGE);
 				}
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnsiguiente.setBackground(new Color(120, 160, 108));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnsiguiente.setBackground(new Color(12, 138, 199));
 			}
 		});
 		btnsiguiente.setLayout(null);
 		btnsiguiente.setBackground(SystemColor.textHighlight);
-		btnsiguiente.setBounds(235, 498, 122, 35);
+		btnsiguiente.setBounds(202, 498, 155, 40);
 		panel.add(btnsiguiente);
 		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnsiguiente.add(lblSiguiente);		
@@ -344,14 +355,14 @@ public class ReservasView extends JFrame {
 		try {
 			reservasController.guardar(nuevaReserva);
 			
-			JOptionPane.showMessageDialog(this,"Registro Guardado con éxito | ID: " + nuevaReserva.getId(),"Exito Reserva", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Registro Guardado con éxito | ID: " + nuevaReserva.getId(),"Exito", JOptionPane.INFORMATION_MESSAGE);
 			RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
 			huesped.setVisible(true);
 			dispose();	
 		} catch (IllegalArgumentException ie) {
-			JOptionPane.showMessageDialog(this, "Alerta al registrar reserva:\n"+ie.getMessage(),"Alerta Reserva", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Alerta al registrar reserva:\n"+ie.getMessage(),"Alerta", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "Error al registrar reserva:\n"+e.getMessage(),"Error Reserva", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al registrar reserva:\n"+e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
 		}
 			
 		

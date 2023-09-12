@@ -27,7 +27,7 @@ public class Exito extends JDialog {
 	public Exito() {
 		setTitle("Registro exitoso");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/ok-24px.png")));
 		setBounds(100, 100, 394, 232);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.control);

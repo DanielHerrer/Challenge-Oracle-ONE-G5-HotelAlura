@@ -39,7 +39,7 @@ public class RegistroHuesped extends JFrame {
 	private HuespedController huespedesController;
 	private ReservaController reservasController;
 	private JLabel labelExit;
-	private JLabel labelAtras;
+	private JLabel labelCancelar;
 	int xMouse, yMouse;
 	int id;
 
@@ -55,7 +55,7 @@ public class RegistroHuesped extends JFrame {
 		this.reservasController = new ReservaController();
 		
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/persona.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
 		contentPane = new JPanel();
@@ -74,42 +74,10 @@ public class RegistroHuesped extends JFrame {
 		header.setBounds(0, 0, 910, 36);
 		contentPane.add(header);
 		
-		JPanel btnAtras = new JPanel();
-		
-		btnAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// Se envia como parametro a Salir() para que si el usuario desea cancelar la Reserva se haga dispose()
-				Salir salir = new Salir(rhAux, idReserva);
-				salir.setVisible(true);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnAtras.setBackground(Color.white);
-				labelAtras.setForeground(Color.black);
-			}			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 btnAtras.setBackground(new Color(12, 138, 199));
-			     labelAtras.setForeground(Color.white);
-			}
-		});
-		btnAtras.setLayout(null);
-		btnAtras.setBackground(new Color(12, 138, 199));
-		btnAtras.setBounds(0, 0, 53, 36);
-		header.add(btnAtras);
-		
-		labelAtras = new JLabel("<");
-		labelAtras.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAtras.setForeground(Color.WHITE);
-		labelAtras.setFont(new Font("Roboto", Font.PLAIN, 23));
-		labelAtras.setBounds(0, 0, 53, 36);
-		btnAtras.add(labelAtras);
-		
 		
 		txtNombre = new JTextField();
 		txtNombre.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtNombre.setBounds(560, 135, 285, 33);
+		txtNombre.setBounds(560, 135, 300, 33);
 		txtNombre.setBackground(Color.WHITE);
 		txtNombre.setColumns(10);
 		txtNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -117,24 +85,24 @@ public class RegistroHuesped extends JFrame {
 		
 		txtApellido = new JTextField();
 		txtApellido.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtApellido.setBounds(560, 204, 285, 33);
+		txtApellido.setBounds(560, 204, 300, 33);
 		txtApellido.setColumns(10);
 		txtApellido.setBackground(Color.WHITE);
 		txtApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		contentPane.add(txtApellido);
 		
 		txtFechaN = new JDateChooser();
-		txtFechaN.setBounds(560, 278, 285, 36);
+		txtFechaN.setBounds(560, 278, 300, 36);
 		txtFechaN.getCalendarButton().setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/icon-reservas.png")));
 		txtFechaN.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtFechaN.setDateFormatString("yyyy-MM-dd");
 		contentPane.add(txtFechaN);
 		
 		txtNacionalidad = new JComboBox();
-		txtNacionalidad.setBounds(560, 350, 289, 36);
+		txtNacionalidad.setBounds(560, 350, 300, 36);
 		txtNacionalidad.setBackground(SystemColor.text);
 		txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtNacionalidad.setModel(new DefaultComboBoxModel(new String[] {"Afgano-afgana", "Alemán-alemana", "Árabe-árabe", "Argentino-argentina", "Australiano-australiana", "Belga-belga", "Boliviano-boliviana", "Brasileño-brasileña", "Camboyano-camboyana", "Canadiense-canadiense", "Chileno-chilena", "Chino-china", "Colombiano-colombiana", "Coreano-coreana", "Costarricense-costarricense", "Cubano-cubana", "Danés-danesa", "Ecuatoriano-ecuatoriana", "Egipcio-egipcia", "Salvadoreño-salvadoreña", "Escocés-escocesa", "Español-española", "Estadounidense-estadounidense", "Estonio-estonia", "Etíope-etíope", "Filipino-filipina", "Finlandés-finlandesa", "Francés-francesa", "Galés-galesa", "Griego-griega", "Guatemalteco-guatemalteca", "Haitiano-haitiana", "Holandés-holandesa", "Hondureño-hondureña", "Indonés-indonesa", "Inglés-inglesa", "Iraquí-iraquí", "Iraní-iraní", "Irlandés-irlandesa", "Israelí-israelí", "Italiano-italiana", "Japonés-japonesa", "Jordano-jordana", "Laosiano-laosiana", "Letón-letona", "Letonés-letonesa", "Malayo-malaya", "Marroquí-marroquí", "Mexicano-mexicana", "Nicaragüense-nicaragüense", "Noruego-noruega", "Neozelandés-neozelandesa", "Panameño-panameña", "Paraguayo-paraguaya", "Peruano-peruana", "Polaco-polaca", "Portugués-portuguesa", "Puertorriqueño-puertorriqueño", "Dominicano-dominicana", "Rumano-rumana", "Ruso-rusa", "Sueco-sueca", "Suizo-suiza", "Tailandés-tailandesa", "Taiwanes-taiwanesa", "Turco-turca", "Ucraniano-ucraniana", "Uruguayo-uruguaya", "Venezolano-venezolana", "Vietnamita-vietnamita"}));
+		txtNacionalidad.setModel(new DefaultComboBoxModel(new String[] {"Afgano-Afgana", "Alemán-alemana", "Árabe-árabe", "Argentino-argentina", "Australiano-australiana", "Belga-belga", "Boliviano-boliviana", "Brasileño-brasileña", "Camboyano-camboyana", "Canadiense-canadiense", "Chileno-chilena", "Chino-china", "Colombiano-colombiana", "Coreano-coreana", "Costarricense-costarricense", "Cubano-cubana", "Danés-danesa", "Ecuatoriano-ecuatoriana", "Egipcio-egipcia", "Salvadoreño-salvadoreña", "Escocés-escocesa", "Español-española", "Estadounidense-estadounidense", "Estonio-estonia", "Etíope-etíope", "Filipino-filipina", "Finlandés-finlandesa", "Francés-francesa", "Galés-galesa", "Griego-griega", "Guatemalteco-guatemalteca", "Haitiano-haitiana", "Holandés-holandesa", "Hondureño-hondureña", "Indonés-indonesa", "Inglés-inglesa", "Iraquí-iraquí", "Iraní-iraní", "Irlandés-irlandesa", "Israelí-israelí", "Italiano-italiana", "Japonés-japonesa", "Jordano-jordana", "Laosiano-laosiana", "Letón-letona", "Letonés-letonesa", "Malayo-malaya", "Marroquí-marroquí", "Mexicano-mexicana", "Nicaragüense-nicaragüense", "Noruego-noruega", "Neozelandés-neozelandesa", "Panameño-panameña", "Paraguayo-paraguaya", "Peruano-peruana", "Polaco-polaca", "Portugués-portuguesa", "Puertorriqueño-puertorriqueño", "Dominicano-dominicana", "Rumano-rumana", "Ruso-rusa", "Sueco-sueca", "Suizo-suiza", "Tailandés-tailandesa", "Taiwanes-taiwanesa", "Turco-turca", "Ucraniano-ucraniana", "Uruguayo-uruguaya", "Venezolano-venezolana", "Vietnamita-vietnamita"}));
 		contentPane.add(txtNacionalidad);
 		
 		JLabel lblNombre = new JLabel("NOMBRE");
@@ -169,7 +137,7 @@ public class RegistroHuesped extends JFrame {
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtTelefono.setBounds(560, 424, 285, 33);
+		txtTelefono.setBounds(560, 424, 300, 33);
 		txtTelefono.setColumns(10);
 		txtTelefono.setBackground(Color.WHITE);
 		txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -178,7 +146,7 @@ public class RegistroHuesped extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("REGISTRO HUÉSPED");
 		lblNewLabel_4.setBounds(585, 55, 237, 30);
 		lblNewLabel_4.setForeground(new Color(12, 138, 199));
-		lblNewLabel_4.setFont(new Font("Roboto Black", Font.PLAIN, 23));
+		lblNewLabel_4.setFont(new Font("Dialog", Font.BOLD, 23));
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNreserva = new JLabel("NÚMERO DE RESERVA");
@@ -190,7 +158,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva = new JTextField();
 		
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtNreserva.setBounds(560, 495, 285, 33);
+		txtNreserva.setBounds(560, 495, 300, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -203,59 +171,68 @@ public class RegistroHuesped extends JFrame {
 			
 		
 		JSeparator separator_1_2 = new JSeparator();
-		separator_1_2.setBounds(560, 170, 289, 2);
+		separator_1_2.setBounds(560, 170, 300, 2);
 		separator_1_2.setForeground(new Color(12, 138, 199));
 		separator_1_2.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2);
 		
 		JSeparator separator_1_2_1 = new JSeparator();
-		separator_1_2_1.setBounds(560, 240, 289, 2);
+		separator_1_2_1.setBounds(560, 240, 300, 2);
 		separator_1_2_1.setForeground(new Color(12, 138, 199));
 		separator_1_2_1.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_1);
 		
 		JSeparator separator_1_2_2 = new JSeparator();
-		separator_1_2_2.setBounds(560, 314, 289, 2);
+		separator_1_2_2.setBounds(560, 314, 300, 2);
 		separator_1_2_2.setForeground(new Color(12, 138, 199));
 		separator_1_2_2.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_2);
 		
 		JSeparator separator_1_2_3 = new JSeparator();
-		separator_1_2_3.setBounds(560, 386, 289, 2);
+		separator_1_2_3.setBounds(560, 386, 300, 2);
 		separator_1_2_3.setForeground(new Color(12, 138, 199));
 		separator_1_2_3.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_3);
 		
 		JSeparator separator_1_2_4 = new JSeparator();
-		separator_1_2_4.setBounds(560, 457, 289, 2);
+		separator_1_2_4.setBounds(560, 457, 300, 2);
 		separator_1_2_4.setForeground(new Color(12, 138, 199));
 		separator_1_2_4.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_4);
 		
 		JSeparator separator_1_2_5 = new JSeparator();
-		separator_1_2_5.setBounds(560, 529, 289, 2);
+		separator_1_2_5.setBounds(560, 529, 300, 2);
 		separator_1_2_5.setForeground(new Color(12, 138, 199));
 		separator_1_2_5.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_5);
 		
+		JLabel labelGuardar = new JLabel("GUARDAR");
+		labelGuardar.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/disquete-blanco.png")));
+		labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
+		labelGuardar.setForeground(Color.WHITE);
+		labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
+		labelGuardar.setBounds(0, 0, 145, 40);
+		
 		JPanel btnguardar = new JPanel();
-		btnguardar.setBounds(723, 560, 122, 35);
+		btnguardar.setBounds(715, 560, 145, 40);
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				guardarHuesped();
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnguardar.setBackground(new Color(120, 160, 108));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnguardar.setBackground(new Color(12, 138, 199));
 			}
 		});
 		btnguardar.setLayout(null);
 		btnguardar.setBackground(new Color(12, 138, 199));
 		contentPane.add(btnguardar);
 		btnguardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		
-		JLabel labelGuardar = new JLabel("GUARDAR");
-		labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
-		labelGuardar.setForeground(Color.WHITE);
-		labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
-		labelGuardar.setBounds(0, 0, 122, 35);
 		btnguardar.add(labelGuardar);
 		
 		JPanel panel = new JPanel();
@@ -265,7 +242,7 @@ public class RegistroHuesped extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel imagenFondo = new JLabel("");
-		imagenFondo.setBounds(0, 121, 479, 502);
+		imagenFondo.setBounds(0, 128, 479, 502);
 		panel.add(imagenFondo);
 		imagenFondo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/registro.png")));
 		
@@ -295,6 +272,7 @@ public class RegistroHuesped extends JFrame {
 			     labelExit.setForeground(Color.black);
 			}
 		});
+		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnexit.setLayout(null);
 		btnexit.setBackground(Color.white);
 		
@@ -304,6 +282,37 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
+		
+		JPanel btnCancelar = new JPanel();
+		btnCancelar.setBounds(560, 560, 145, 40);
+		contentPane.add(btnCancelar);
+		btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnCancelar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Se envia como parametro a Salir() para que si el usuario desea cancelar la Reserva se haga dispose()
+				Salir salir = new Salir(rhAux, idReserva);
+				salir.setVisible(true);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnCancelar.setBackground(Color.red);
+			}			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				 btnCancelar.setBackground(new Color(12, 138, 199));
+			}
+		});
+		btnCancelar.setLayout(null);
+		btnCancelar.setBackground(new Color(12, 138, 199));
+		
+		labelCancelar = new JLabel("CANCELAR");
+		labelCancelar.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/cancelar-blanco.png")));
+		labelCancelar.setHorizontalAlignment(SwingConstants.CENTER);
+		labelCancelar.setForeground(Color.WHITE);
+		labelCancelar.setFont(new Font("Dialog", Font.PLAIN, 18));
+		labelCancelar.setBounds(0, 0, 145, 40);
+		btnCancelar.add(labelCancelar);
 	}
 	
 
@@ -327,10 +336,10 @@ public class RegistroHuesped extends JFrame {
 			dispose();
 			
 		} catch(IllegalArgumentException ie) {
-			JOptionPane.showMessageDialog(this, "Alerta al registrar huesped:\n"+ie.getMessage(),"Alerta Huesped",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Alerta al registrar huesped:\n"+ie.getMessage(),"Alerta",JOptionPane.WARNING_MESSAGE);
 			
 		} catch(SQLException e) {
-			JOptionPane.showMessageDialog(this, "Error al registrar huesped:\n"+e.getMessage(),"Error Huesped",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al registrar huesped:\n"+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}							
 	}
 	

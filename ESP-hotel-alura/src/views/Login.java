@@ -22,6 +22,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.List;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Login extends JFrame {
 
@@ -68,7 +70,6 @@ public class Login extends JFrame {
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
-		panel_1.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -88,29 +89,45 @@ public class Login extends JFrame {
 		});
 		btnexit.setBackground(new Color(12, 138, 199));
 		btnexit.setLayout(null);
-		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		panel_1.add(btnexit);
 		
 		labelExit = new JLabel("X");
 		labelExit.setBounds(0, 0, 53, 36);
 		btnexit.add(labelExit);
 		labelExit.setForeground(SystemColor.text);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
-		labelExit.setHorizontalAlignment(SwingConstants.CENTER);		
+		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		txtUsuario = new JTextField();
+		txtUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
+					 txtUsuario.setText("");
+					 txtUsuario.setForeground(Color.black);
+		        }
+		        if (String.valueOf(txtContrasena.getPassword()).isEmpty()) {
+		        	txtContrasena.setText("********");
+		        	txtContrasena.setForeground(Color.gray);
+		        }
+			}
+		});
+		/*
 		txtUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				 if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
+				if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
 					 txtUsuario.setText("");
 					 txtUsuario.setForeground(Color.black);
-			        }
-			        if (String.valueOf(txtContrasena.getPassword()).isEmpty()) {
-			        	txtContrasena.setText("********");
-			        	txtContrasena.setForeground(Color.gray);
-			        }
+		        }
+		        if (String.valueOf(txtContrasena.getPassword()).isEmpty()) {
+		        	txtContrasena.setText("********");
+		        	txtContrasena.setForeground(Color.gray);
+		        }
 			}
-		});
+		});*/
 		txtUsuario.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtUsuario.setText("Ingrese su nombre de usuario");
 		txtUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -137,9 +154,9 @@ public class Login extends JFrame {
 		
 		txtContrasena = new JPasswordField();
 		txtContrasena.setText("********");
-		txtContrasena.addMouseListener(new MouseAdapter() {
+		txtContrasena.addFocusListener(new FocusAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void focusGained(FocusEvent e) {
 				if (String.valueOf(txtContrasena.getPassword()).equals("********")) {
 					txtContrasena.setText("");
 					txtContrasena.setForeground(Color.black);
@@ -169,10 +186,13 @@ public class Login extends JFrame {
 		panel.add(lblContrasea);
 		
 		JPanel btnLogin = new JPanel();
+		JLabel lblLogin = new JLabel("ENTRAR");
+		
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnLogin.setBackground(new Color(0, 156, 223));
+				lblLogin.setForeground(Color.WHITE);
 			}
 		
 			@Override
@@ -189,13 +209,12 @@ public class Login extends JFrame {
 		panel.add(btnLogin);
 		btnLogin.setLayout(null);
 		btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		
-		JLabel lblNewLabel = new JLabel("ENTRAR");
-		lblNewLabel.setBounds(0, 0, 122, 44);
-		btnLogin.add(lblNewLabel);
-		lblNewLabel.setForeground(SystemColor.controlLtHighlight);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
+			
+		lblLogin.setBounds(0, 0, 122, 44);
+		btnLogin.add(lblLogin);
+		lblLogin.setForeground(SystemColor.controlLtHighlight);
+		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogin.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,6 +240,39 @@ public class Login extends JFrame {
 		header.setBounds(0, 0, 784, 36);
 		panel.add(header);
 		header.setLayout(null);
+		
+		JPanel btnAtras = new JPanel();
+		JLabel labelAtras = new JLabel("<");
+		
+		btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnAtras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuPrincipal principal = new MenuPrincipal();
+				principal.setVisible(true);
+				dispose();
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAtras.setBackground(new Color(12, 138, 199));
+				labelAtras.setForeground(Color.white);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAtras.setBackground(Color.WHITE);
+				labelAtras.setForeground(Color.white);
+			}
+		});
+		btnAtras.setLayout(null);
+		btnAtras.setBackground(Color.WHITE);
+		btnAtras.setBounds(0, 0, 53, 36);
+		header.add(btnAtras);
+		
+		
+		labelAtras.setHorizontalAlignment(SwingConstants.CENTER);
+		labelAtras.setFont(new Font("Dialog", Font.PLAIN, 23));
+		labelAtras.setBounds(0, 0, 53, 36);
+		btnAtras.add(labelAtras);
 	}
 	
 	private void tryLogin() {
@@ -236,10 +288,10 @@ public class Login extends JFrame {
                 menu.setVisible(true);
                 dispose();	 
             }else {
-                JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos","Error Login",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos","Error",JOptionPane.ERROR_MESSAGE);
             }
         } else {
-        	JOptionPane.showMessageDialog(this, "Debe completar los datos", "Alerta Login", JOptionPane.WARNING_MESSAGE);
+        	JOptionPane.showMessageDialog(this, "Debe completar los datos", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
 	} 
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {

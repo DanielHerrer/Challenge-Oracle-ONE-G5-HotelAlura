@@ -20,19 +20,18 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Salir extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the dialog.
-	 */
+	// Este constructor es para cuando quiere salir de la app
 	public Salir() {
 		setTitle("Salir");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/cerrar-24px.png")));
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.control);
@@ -79,11 +78,74 @@ public class Salir extends JDialog {
 		}
 	}
 	
-	// Ventana para salir para ReservasView 
+	// Este constructor es para cerrar sesion
+	public Salir(MenuUsuario mu, String user) {
+		setTitle("Cerrar Sesión");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
+		setBounds(100, 100, 394, 234);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.control);
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
+			lblNewLabel.setBounds(135, 5, 100, 100);
+			contentPanel.add(lblNewLabel);
+		}
+		{
+			JLabel lblNewLabel_1 = new JLabel("¿Desea cerrar sesión?");
+			lblNewLabel_1.setForeground(new Color (12, 138, 199));
+			lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
+			lblNewLabel_1.setBounds(88, 134, 197, 22);
+			contentPanel.add(lblNewLabel_1);
+		}
+		{
+			JLabel lblUser = new JLabel("");
+			lblUser.setText(user);
+			lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+			lblUser.setForeground(new Color(12, 138, 199));
+			lblUser.setFont(new Font("Arial", Font.BOLD, 18));
+			lblUser.setBounds(88, 108, 197, 22);
+			contentPanel.add(lblUser);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("Si");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						mu.dispose();
+						MenuPrincipal principal = new MenuPrincipal();
+						principal.setVisible(true);
+						dispose();
+					}
+				});
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("No");
+				cancelButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+	
+	// Este constructor es para cancelar una reserva estando en la ventana de RegistroHuesped 
 	public Salir(RegistroHuesped rh, Integer idReserva) {
 		setResizable(false);
 		setTitle("Cancelar Reserva");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/papelera-de-reciclaje.png")));
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.control);

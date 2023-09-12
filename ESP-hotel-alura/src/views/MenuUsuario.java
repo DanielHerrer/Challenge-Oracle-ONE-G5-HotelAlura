@@ -3,6 +3,9 @@ package views;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.UsuarioDAO;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -16,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.SystemColor;
 import javax.swing.JSeparator;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class MenuUsuario extends JFrame {
@@ -87,7 +91,7 @@ public class MenuUsuario extends JFrame {
 		btnRegistro.setBackground(new Color(12, 138, 199));
 		panelMenu.add(btnRegistro);
 		btnRegistro.setLayout(null);
-		btnRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); // MUESTRA la manito al pasar el mouse encima
 		
 		labelRegistro = new JLabel("Registro de reservas");
 		labelRegistro.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/reservado.png")));
@@ -155,6 +159,7 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 		
+		btnexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		btnexit.setLayout(null);
 		btnexit.setBackground(Color.WHITE);
 		btnexit.setBounds(891, 0, 53, 36);
@@ -187,38 +192,84 @@ public class MenuUsuario extends JFrame {
 	    String fecha = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual); //formatear la fecha en una cadena
 	    labelFecha.setText("Hoy es " + fecha); //setear la representacion en cadena de la fecha
 	    
-	    JLabel lblBienvenido = new JLabel("Bienvenido");
+	    JLabel lblBienvenido = new JLabel("Bienvenido "+UsuarioDAO.usuarioConectado);
 	    lblBienvenido.setFont(new Font("Roboto", Font.BOLD, 24));
-	    lblBienvenido.setBounds(302, 234, 147, 46);
+	    lblBienvenido.setBounds(304, 216, 552, 46);
 	    contentPane.add(lblBienvenido);
 	    
 	    String textoDescripcion = "<html><body>Sistema de reserva de hotel. Controle y administre de forma óptima y fácil <br> el flujo de reservas y de huespédes del hotel   </body></html>";
 	    JLabel labelDescripcion = new JLabel(textoDescripcion);
 	    labelDescripcion.setFont(new Font("Roboto", Font.PLAIN, 17));
 	   
-	    labelDescripcion.setBounds(312, 291, 598, 66);
+	    labelDescripcion.setBounds(315, 265, 598, 66);
 	    contentPane.add(labelDescripcion);
 	    
 	    String textoDescripcion1 = "<html><body> Esta herramienta le permitirá llevar un control completo y detallado de sus reservas y huéspedes, tendrá acceso a heramientas especiales para tareas específicas como lo son:</body></html>";
 	    JLabel labelDescripcion_1 = new JLabel(textoDescripcion1);
 	    labelDescripcion_1.setFont(new Font("Roboto", Font.PLAIN, 17));
-	    labelDescripcion_1.setBounds(311, 345, 569, 88);
+	    labelDescripcion_1.setBounds(314, 314, 569, 88);
 	    contentPane.add(labelDescripcion_1);
 	    
 	    JLabel lblDescripcion_3 = new JLabel("- Registro de Reservas y Huéspedes");
 	    lblDescripcion_3.setFont(new Font("Roboto", Font.PLAIN, 17));
-	    lblDescripcion_3.setBounds(312, 444, 295, 27);
+	    lblDescripcion_3.setBounds(325, 413, 295, 27);
 	    contentPane.add(lblDescripcion_3);
 	    
 	    JLabel lblDescripcion_4 = new JLabel("- Edición de Reservas y Huéspedes existentes");
 	    lblDescripcion_4.setFont(new Font("Roboto", Font.PLAIN, 17));
-	    lblDescripcion_4.setBounds(312, 482, 355, 27);
+	    lblDescripcion_4.setBounds(325, 445, 355, 27);
 	    contentPane.add(lblDescripcion_4);
 	    
 	    JLabel lblDescripcion_5 = new JLabel("- Eliminar todo tipo de registros");
 	    lblDescripcion_5.setFont(new Font("Roboto", Font.PLAIN, 17));
-	    lblDescripcion_5.setBounds(312, 520, 295, 27);
+	    lblDescripcion_5.setBounds(325, 478, 295, 27);
 	    contentPane.add(lblDescripcion_5);
+	    
+	    JPanel btnCerrarSesion = new JPanel();
+	    
+	    MenuUsuario muAux = this; // Se crea una variable auxiliar que aloja la instancia de la ventana MenuUsuario
+	    btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+	    btnCerrarSesion.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) {
+	    		Salir salir = new Salir(muAux, UsuarioDAO.usuarioConectado);
+				salir.setVisible(true);
+	    	}
+	    });
+	    btnCerrarSesion.setLayout(null);
+	    btnCerrarSesion.setBackground(SystemColor.window);
+	    btnCerrarSesion.setBounds(736, 543, 204, 61);
+	    btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+	    contentPane.add(btnCerrarSesion);
+	    
+	    JLabel lblCerrarSesion = new JLabel("");
+	    lblCerrarSesion.setLabelFor(btnCerrarSesion);
+	    lblCerrarSesion.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
+	    lblCerrarSesion.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblCerrarSesion.setBounds(150, 0, 52, 61);
+	    btnCerrarSesion.add(lblCerrarSesion);
+	    
+	    JLabel lblDeslog = new JLabel("CERRAR SESIÓN");
+	    lblDeslog.setHorizontalAlignment(SwingConstants.RIGHT);
+	    lblDeslog.setBounds(10, 0, 139, 61);
+	    btnCerrarSesion.add(lblDeslog);
+	    lblDeslog.setForeground(SystemColor.textInactiveText);
+	    lblDeslog.setFont(new Font("Dialog", Font.BOLD, 16));
+	    
+	    JLabel lblCerrarSesion_1 = new JLabel("");
+	    lblCerrarSesion_1.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/perfil-del-usuario.png")));
+	    lblCerrarSesion_1.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblCerrarSesion_1.setBounds(894, 38, 50, 46);
+	    contentPane.add(lblCerrarSesion_1);
+	    
+	    JLabel lblUsuario = new JLabel("LOGIN");
+	    lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+	    lblUsuario.setForeground(SystemColor.textHighlight);
+	    lblUsuario.setFont(new Font("Dialog", Font.PLAIN, 20));
+	    lblUsuario.setBackground(SystemColor.window);
+	    lblUsuario.setBounds(725, 48, 170, 24);
+	    contentPane.add(lblUsuario);
+	    lblUsuario.setText(UsuarioDAO.usuarioConectado);
 	}
 	
 	private void headerMousePressed(java.awt.event.MouseEvent evt) {

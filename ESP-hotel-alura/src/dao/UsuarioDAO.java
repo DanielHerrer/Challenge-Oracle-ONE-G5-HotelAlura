@@ -12,6 +12,7 @@ import modelo.Usuario;
 
 public class UsuarioDAO {
 	
+	public static String usuarioConectado;
 	private Connection connection;
 	
 	public UsuarioDAO(Connection connection) {
@@ -88,6 +89,11 @@ public class UsuarioDAO {
 
 				transformarResultSetEnUsuario(usuarios, pstm);
 			}
+			
+			if(!usuarios.isEmpty()) {
+				usuarioConectado = user;
+			}
+			
 			return usuarios;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

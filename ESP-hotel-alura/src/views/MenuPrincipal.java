@@ -38,7 +38,6 @@ public class MenuPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 
-		
 		Panel panel = new Panel();
 		panel.setBackground(SystemColor.window);
 		panel.setBounds(0, 0, 910, 537);
@@ -63,8 +62,8 @@ public class MenuPrincipal extends JFrame {
 		
         int anioActual = LocalDate.now().getYear();
         
-		JLabel lblCopyR = new JLabel("Desarrollado por Daniel Franco Herrera © "+anioActual);
-		lblCopyR.setBounds(315, 11, 332, 21);
+		JLabel lblCopyR = new JLabel("Developer (Daniel Franco Herrera) © 2023");
+		lblCopyR.setBounds(315, 7, 332, 21);
 		lblCopyR.setForeground(new Color(240, 248, 255));
 		lblCopyR.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel_1.add(lblCopyR);
