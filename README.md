@@ -20,6 +20,8 @@ git clone https://github.com/DanielHerrer/Challenge-Oracle-ONE-G5-HotelAlura
 
 <b>6.</b> Ejecuta la clase "src/Main.java" e inicia sesión con user "admin" y pass "admin".
 
+## Vista Previa
+
 <img src="demo_hotel_test_1m.gif" alt="Demostración de la aplicación" width="800"/>
 
 ## Tecnologías Utilizadas
