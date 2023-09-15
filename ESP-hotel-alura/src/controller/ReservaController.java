@@ -10,9 +10,10 @@ import factory.ConnectionFactory;
 import modelo.Reserva;
 
 public class ReservaController {
- private ReservaDAO reservaDAO;
+	
+	private ReservaDAO reservaDAO;
  
- public ReservaController() {
+	public ReservaController() {
 		Connection connection = new ConnectionFactory().recuperarConexion();
 		this.reservaDAO = new ReservaDAO(connection);
 	}
@@ -41,8 +42,4 @@ public class ReservaController {
 		this.reservaDAO.eliminar(id);
 	}
 	
-	/*
-	public void eliminarPorHuesped(Integer id) {
-		this.reservaDAO.eliminarPorHuesped(id);
-	}*/
 }

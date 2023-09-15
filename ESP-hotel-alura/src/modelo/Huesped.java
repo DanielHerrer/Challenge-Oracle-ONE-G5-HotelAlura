@@ -11,27 +11,25 @@ public class Huesped {
 	private String telefono;
 	private Integer idReserva;
 	
-	public Huesped(String nombreX, String apellidoX,  Date fechaNacimientoX, String nacionalidadX, String telefonoX,
-			Integer idReservaX) {
-		super();
-		nombre = nombreX;
-		apellido = apellidoX;
-		fechaNacimiento = fechaNacimientoX;
-		nacionalidad = nacionalidadX;
-		telefono = telefonoX;
-		idReserva = idReservaX;
+	public Huesped(String nombre, String apellido,  Date fechaNacimiento, String nacionalidad, String telefono,
+			Integer idReserva) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		this.idReserva = idReserva;
 	}
 	
-	public Huesped(Integer idX, String nombreX, String apellidoX, Date fechaNacimientoX, String nacionalidadX,
-			String telefonoX, Integer idReservaX) {
-		super();
-		id = idX;
-		nombre = nombreX;
-		apellido = apellidoX;
-		fechaNacimiento = fechaNacimientoX;
-		nacionalidad = nacionalidadX;
-		telefono = telefonoX;
-		idReserva = idReservaX;
+	public Huesped(Integer id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
+			String telefono, Integer idReserva) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		this.idReserva = idReserva;
 	}
 
 
@@ -39,8 +37,8 @@ public class Huesped {
 		return id;
 	}
 
-	public void setId(Integer idX) {
-		id = idX;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 
@@ -48,48 +46,48 @@ public class Huesped {
 		return nombre;
 	}
 
-	public void setNombre(String nombreX) {
-		nombre = nombreX;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getApellido() {
 		return apellido;
 	}
 
-	public void setApellido(String apellidoX) {
-		apellido = apellidoX;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
 
-	public void setNacionalidad(String nacionalidadX) {
-		nacionalidad = nacionalidadX;
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
 	}
 
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimientoX) {
-		fechaNacimiento = fechaNacimientoX;
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(String telefonoX) {
-		telefono = telefonoX;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	public Integer getIdReserva() {
 		return idReserva;
 	}
 
-	public void setIdReserva(Integer idReservaX) {
-		idReserva = idReservaX;
+	public void setIdReserva(Integer idReserva) {
+		this.idReserva = idReserva;
 	}
 	
 }

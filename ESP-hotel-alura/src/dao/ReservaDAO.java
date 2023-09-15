@@ -21,7 +21,7 @@ public class ReservaDAO {
 	
 	public void guardar(Reserva reserva) throws IllegalArgumentException, SQLException {
 		try {
-			// La fecha de salida es anterior a la fecha de entrada.
+			// Si la fecha de salida es anterior a la fecha de entrada.
 			if (reserva.getfechaS().before(reserva.getfechaE())) {
 				throw new IllegalArgumentException("La fecha de salida es anterior a la fecha de entrada.");
 			}
@@ -47,7 +47,6 @@ public class ReservaDAO {
 		} catch (SQLException e) {
 			throw e;
 		}
-
 	}
 	
 	public List<Reserva> buscar() {
@@ -111,7 +110,7 @@ public class ReservaDAO {
 		}
 	}
 	
-	// No se puede eliminar una reserva debido a que un registro huesped contiene un foreign key de id_reserva
+	// No se puede eliminar una reserva debido a que un registro huesped contiene un foreign key de id Reserva
 	/*
 	public void eliminarPorHuesped(Integer id) {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id IN (SELECT id_Reserva FROM huespedes WHERE id_Reserva = ?)")) {
@@ -146,4 +145,5 @@ public class ReservaDAO {
 			}
 		}
 	}
+
 }

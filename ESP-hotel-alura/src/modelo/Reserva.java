@@ -29,8 +29,6 @@ public class Reserva {
 		this.formaPago = formaPago;
 	}
 
-	
-
 	public Integer getId() {
 		return id;
 	}
@@ -58,7 +56,6 @@ public class Reserva {
 	public String getformaPago() {
 		return formaPago;
 	}
-
 	
 //	@Override
 //	public String toString() {
@@ -67,6 +64,4 @@ public class Reserva {
 //	}
 //	
 	
-	
 }
-

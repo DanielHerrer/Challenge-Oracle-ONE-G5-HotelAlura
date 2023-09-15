@@ -242,7 +242,7 @@ public class RegistroHuesped extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel imagenFondo = new JLabel("");
-		imagenFondo.setBounds(0, 128, 479, 502);
+		imagenFondo.setBounds(0, 130, 479, 502);
 		panel.add(imagenFondo);
 		imagenFondo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/registro.png")));
 		
@@ -342,7 +342,5 @@ public class RegistroHuesped extends JFrame {
 			JOptionPane.showMessageDialog(this, "Error al registrar huesped:\n"+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}							
 	}
-	
-										
-	}
-
+								
+}

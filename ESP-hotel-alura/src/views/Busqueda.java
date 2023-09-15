@@ -446,7 +446,7 @@ public class Busqueda extends JFrame {
 
 	private void LlenarTablaHuespedes() {			       
 	    //Llenar Tabla
-		List<Huesped> huespedes = huespedController.listarHuespedes();
+		List<Huesped> huespedes = huespedController.buscar();
 		try {
 			
 			for (Huesped huesped : huespedes) {
@@ -460,7 +460,7 @@ public class Busqueda extends JFrame {
 	
 	private void LlenarTablaHuespedesId(String id) {			       
 	    //Llenar Tabla
-		List<Huesped> huespedes = huespedController.listarHuespedesId(id);
+		List<Huesped> huespedes = huespedController.buscarId(id);
 		try {
 			
 			for (Huesped huesped : huespedes) {
@@ -474,7 +474,7 @@ public class Busqueda extends JFrame {
 	
 	private void LlenarTablaHuespedesApellido(String apellido) {			       
 	    //Llenar Tabla
-		List<Huesped> huespedes = huespedController.listarHuespedesApellido(apellido);
+		List<Huesped> huespedes = huespedController.buscarApellido(apellido);
 		try {
 			
 			for (Huesped huesped : huespedes) {

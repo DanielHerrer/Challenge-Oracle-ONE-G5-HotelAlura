@@ -14,7 +14,8 @@ import java.util.List;
 import modelo.Huesped;
 
 public class HuespedDAO {
-private Connection connection;
+	
+	private Connection connection;
 	
 	public HuespedDAO(Connection connection) {
 		this.connection = connection;
@@ -61,7 +62,6 @@ private Connection connection;
 						huesped.setId(rst.getInt(1));
 					}
 				}
-
 			}
 			
 		} catch (NumberFormatException ne) {
@@ -73,7 +73,7 @@ private Connection connection;
 		}
 	}
 	
-	public List<Huesped> listarHuespedes() {
+	public List<Huesped> buscar() {
 		List<Huesped> huespedes = new ArrayList<Huesped>();
 		try {
 			String sql = "SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, id_Reserva FROM huespedes";
@@ -168,7 +168,4 @@ private Connection connection;
 		}				
 	}
 	
-	
-		
 }
-
