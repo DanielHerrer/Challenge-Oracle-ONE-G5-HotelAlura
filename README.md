@@ -22,7 +22,7 @@ git clone https://github.com/DanielHerrer/Challenge-Oracle-ONE-G5-HotelAlura
 
 ## Vista Previa
 
-<img src="demo_hotel_test_1m.gif" alt="Demostración de la aplicación" width="800"/>
+<img src="demo_hotel_test_30sec.gif" alt="Demostración de la aplicación" width="800"/>
 
 ## Tecnologías Utilizadas
 
