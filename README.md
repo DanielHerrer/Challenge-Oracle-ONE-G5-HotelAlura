@@ -1,6 +1,9 @@
-# Hotel Alura - Challenge ONE G5
-Éste proyecto se basa en un sistema de reservas para el "Hotel Alura"<br>
- desarrollado con Java, librerias Swing y conexiones JDBC.<br>
+# Sistema de Reservas Hotel Alura - Challenge ONE G5
+
+Usando lo aprendido con librerías Swing procedo a trabajar sobre el sistema de reservas brindado para añadirle las funcionalidades de autenticación, lógica, validación y autorización. La aplicación forma parte del tercer Challenge de Oracle Next Education y fue empeñado en Java usando patrón DAO, excepciones, JDBC y consultas SQL.
+
+## Insignia JDBC & MySQL
+
 <img src="/03_insignia_java_sql_jdbc.png" width="300px" alt="Insignia Obtenida por la aplicacion Hotel Alura">
 
 ## Tecnologías Utilizadas
