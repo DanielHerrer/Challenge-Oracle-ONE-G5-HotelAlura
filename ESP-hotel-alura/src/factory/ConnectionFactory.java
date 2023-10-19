@@ -19,8 +19,8 @@ public class ConnectionFactory {
 	public ConnectionFactory() {		
 		/**
 		 * Se usa ComboPooled (c3po) en vez de DriverManager, 
-		 * debido a una mayor escalabilidad de nuestra aplicacion, 
-		 * posibilidad de multiples conexiones y tiempo de espera entre ellas
+		 *  debido a una mayor escalabilidad de nuestra aplicacion, 
+		 *   posibilidad de multiples conexiones y tiempo de espera entre ellas
 		 */
 		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
 		comboPooledDataSource.setJdbcUrl(jdbcUrl);
