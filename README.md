@@ -2,7 +2,30 @@
 
 ### :bookmark_tabs: Descripcion
 
-Éste proyecto se basa en un sistema de reservas para el "Hotel Alura" desarrollado con Java, librerias Swing y conexiones JDBC.
+Usando lo aprendido con librerías Swing procedo a trabajar sobre el sistema de reservas brindado para añadirle las funcionalidades de autenticación, lógica, validación y autorización. La aplicación forma parte del tercer Challenge de Oracle Next Education y fue empeñado en Java usando patrón DAO, excepciones, JDBC y consultas SQL.
+
+## Insignia JDBC & MySQL
+
+<img src="/03_insignia_java_sql_jdbc.png" width="300px" alt="Insignia Obtenida por la aplicacion Hotel Alura">
+
+## Tecnologías Utilizadas
+
+<ul>
+  <li>Java SE</li>
+  <li>Swing</li>
+  <li>Eclipse IDE</li>
+  <li>Plugin WindowBuilder</li>
+  <li>MySql Workbench</li>
+  <li>JDBC</li>
+</ul>
+
+## Diagrama de la Base de Datos
+
+<img src="/entidad-relacion-hotel-alura.png" width="800"/>
+
+## Vista Previa del Sistema de Reservas
+
+<img src="/demo_hotel_test_30sec.gif" alt="Demostración de la aplicación" width="800"/>
 
 ### :star: Insignia JDBC & MySQL
 
