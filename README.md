@@ -4,29 +4,6 @@
 
 Usando lo aprendido con librerías Swing procedo a trabajar sobre el sistema de reservas brindado para añadirle las funcionalidades de autenticación, lógica, validación y autorización. La aplicación forma parte del tercer Challenge de Oracle Next Education y fue empeñado en Java usando patrón DAO, excepciones, JDBC y consultas SQL.
 
-## Insignia JDBC & MySQL
-
-<img src="/03_insignia_java_sql_jdbc.png" width="300px" alt="Insignia Obtenida por la aplicacion Hotel Alura">
-
-## Tecnologías Utilizadas
-
-<ul>
-  <li>Java SE</li>
-  <li>Swing</li>
-  <li>Eclipse IDE</li>
-  <li>Plugin WindowBuilder</li>
-  <li>MySql Workbench</li>
-  <li>JDBC</li>
-</ul>
-
-## Diagrama de la Base de Datos
-
-<img src="/entidad-relacion-hotel-alura.png" width="800"/>
-
-## Vista Previa del Sistema de Reservas
-
-<img src="/demo_hotel_test_30sec.gif" alt="Demostración de la aplicación" width="800"/>
-
 ### :star: Insignia JDBC & MySQL
 
 <a src="https://d335luupugsy2.cloudfront.net/cms%2Ffiles%2F10224%2F1677508436Prancheta_1.png?utm_campaign=alura_latam_-_challenge_email_projeto_6_esp&utm_medium=email&utm_source=RD+Station"><img src="/03_insignia_java_sql_jdbc.png" width="300px" alt="Insignia Obtenida por la aplicacion Hotel Alura"></a>
@@ -58,15 +35,15 @@ git clone https://github.com/DanielHerrer/Challenge-Oracle-ONE-G5-HotelAlura
 
 <b>2.</b> Encender el servidor, asegúrate de que tu servidor de base de datos esté activo. Dependiendo de tus preferencias y configuración, puedes utilizar SQL Server o XAMPP (MySQL).
 
-<b>3.</b> Ejecuta la consulta CREATE para la creacion del esquema de la base de datos, desde el archivo: <br> [ scripts_HotelAlura.sql ]<br>.
+<b>3.</b> Ejecuta la consulta CREATE para la creacion del esquema de la base de datos, desde el archivo: <br> [ scripts_HotelAlura.sql ]<br>
 
 <b>4.</b> Ejecuta la consulta INSERT para la inserción del usuario administrador y su respectiva clave, desde el archivo: <br> [ scripts_HotelAlura.sql ]<br>
 
 <b>5.</b> Abre el proyecto en tu IDE (preferentemente Eclipse con su plug-in Window Builder) y asegurate de tener configuradas sus dependencias BUILD PATH en el directorio:<br> [ ESP-hotel-alura/lib ]<br>
 
-<b>6.</b> Configura la clase [ src/factory/ConnectionFactory.java ] con el usuario, contraseña y localhost de tu servidor MySQL.
+<b>6.</b> Configura la clase 'ConnectionFactory' con el usuario, contraseña y localhost de tu servidor MySQL:<br> [ src/factory/ConnectionFactory.java ]<br>
 
-<b>7.</b> Ejecuta la clase [ src/Main.java ] e inicia sesión con user "admin" y pass "admin" (o el que hayas seteado).
+<b>7.</b> Ejecuta la clase 'Main' e inicia sesión con user "admin" y pass "admin" (o el que hayas seteado):<br>  [ src/Main.java ]<br>
 
 
 **Developer** :shipit:
